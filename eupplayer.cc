@@ -111,7 +111,7 @@ typedef int (*CommandProc)(int, EUPPlayer *);
 
 static CommandProc const _commands[0x08] = {
   EUPPlayer_cmd_8x, EUPPlayer_cmd_9x, EUPPlayer_cmd_ax, EUPPlayer_cmd_bx,
-  EUPPlayer_cmd_cx, EUPPlayer_cmd_dx, EUPPlayer_cmd_ex, EUPPlayer_cmd_fx,	
+  EUPPlayer_cmd_cx, EUPPlayer_cmd_dx, EUPPlayer_cmd_ex, EUPPlayer_cmd_fx,
 };
 
 static CommandProc const _fCommands[0x10] = {
@@ -141,10 +141,10 @@ int EUPPlayer_cmd_8x(int cmd, EUPPlayer *pl)
 {
   /* ノートオフ */
   DB_PROCESSING("Note off");
-  
+
   /* 単独で来るはずが無いからエラーにする.  でも, DATA CONTINUE の直後
      なら有り得るかな?  */
-  
+
   return EUPPlayer_cmd_INVALID(cmd, pl);
 }
 
@@ -158,10 +158,10 @@ int EUPPlayer_cmd_9x(int cmd, EUPPlayer *pl)
     /* 次のコマンドが不正だってメッセージ出さなきゃなぁ  */
     return EUPPlayer_cmd_INVALID(cmd, pl);
   }
-  
+
   if ((cmd & 0x0f) != 0)
     DB(("MIDI-ch is not zero (%02x).\n", cmd)); // pb_theme など
-  
+
   int track = (pl->_curP)[1];
   int note = (pl->_curP)[4];
   int onVelo = (pl->_curP)[5];
@@ -173,7 +173,7 @@ int EUPPlayer_cmd_9x(int cmd, EUPPlayer *pl)
   if (offVelo == 0 || offVelo >= 0x80)
     offVelo = onVelo; // これでいいのだろうか?  (灰p.437)
   pl->_outputDev->note(pl->_track2channel[track], note, onVelo, offVelo, gateTime);
-  
+
   pl->_curP += 12;
   return 0;
 }
@@ -222,11 +222,11 @@ int EUPPlayer_cmd_ex(int cmd, EUPPlayer *pl)
   /* ピッチベンド */
   WAIT4NEXTSTEP;
   DB_PROCESSING("Pitch bend");
-  
+
   int track = (pl->_curP)[1];
   int value = (pl->_curP)[4] + ((pl->_curP)[5] << 7);
   pl->_outputDev->pitchBend(pl->_track2channel[track], value);
-  
+
   pl->_curP += 6;
   return 0;
 }
@@ -255,7 +255,7 @@ int EUPPlayer_cmd_f2(int cmd, EUPPlayer *pl)
   /* 小節マーカー */
   WAIT4NEXTSTEP;
   DB_PROCESSING("Bar");
-  
+
 #if OVERSTEP == 0 || OVERSTEP == 2
   pl->_stepTime = 0;
   // 仕様通りだとこうするべきなのだと思う
@@ -373,7 +373,7 @@ int EUPPlayer_cmd_ff(int cmd, EUPPlayer *pl)
 void EUPPlayer::nextTick()
 {
   // steptime ひとつ分進める
-  
+
   if (this->isPlaying())
     for (;;) {
       int cmd = *_curP;
@@ -383,10 +383,10 @@ void EUPPlayer::nextTick()
       if (cmdProc(cmd, this))
 	break;
     }
-  
+
   if (_outputDev != NULL)
     _outputDev->nextTick();
-  
+
   _stepTime++;
 }
 
@@ -398,10 +398,10 @@ int EUPPlayer::tempo() const
 void EUPPlayer::tempo(int t)
 {
   _tempo = t;
-  
+
   if (_tempo <= 0)
     return;
-  
+
   int t0 = 96 * t;
   struct timeval tv;
   tv.tv_sec = 60 / t0;

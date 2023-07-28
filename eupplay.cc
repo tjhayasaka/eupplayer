@@ -1,15 +1,15 @@
 /*      Copyright (C) 1995-1996, 2000 Tomoaki HAYASAKA.
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  */
 
 // $Id: eupplay.cc,v 1.15 2000/04/12 23:20:56 hayasaka Exp $
@@ -69,7 +69,7 @@ static FILE *openFile_inPath(string const &filename, string const &path)
   }
   if (f == NULL)
     fprintf(stderr, "error finding %s\n", filename.c_str());
-  
+
   return f;
 }
 
@@ -78,17 +78,17 @@ u_char *EUPPlayer_readFile(EUPPlayer *player,
 			   string const &nameOfEupFile)
 {
   // とりあえず, TOWNS emu のみに対応.
-  
+
   u_char *eupbuf = NULL;
   player->stopPlaying();
-  
+
   {
     FILE *f = fopen(nameOfEupFile.c_str(), "r");
     if (f == NULL) {
       perror(nameOfEupFile.c_str());
       return NULL;
     }
-    
+
     struct stat statbuf;
     if (fstat(fileno(f), &statbuf) != 0) {
       perror(nameOfEupFile.c_str());
@@ -101,7 +101,7 @@ u_char *EUPPlayer_readFile(EUPPlayer *player,
       fclose(f);
       return NULL;
     }
-    
+
     eupbuf = new u_char[statbuf.st_size];
     fread(eupbuf, statbuf.st_size, 1, f);
     fclose(f);
@@ -117,7 +117,7 @@ u_char *EUPPlayer_readFile(EUPPlayer *player,
     device->assignFmDeviceToChannel(eupbuf[0x6d4 + n]);
   for (int n = 0; n < 8; n++)
     device->assignPcmDeviceToChannel(eupbuf[0x6da + n]);
-  
+
   string fmbPath(".:/usr/local/share/fj2/tone:/usr/share/fj2/tone");
   string pmbPath(".:/usr/local/share/fj2/tone:/usr/share/fj2/tone");
   {
@@ -132,7 +132,7 @@ u_char *EUPPlayer_readFile(EUPPlayer *player,
     fmbPath = eupDir + ":" + fmbPath;
     pmbPath = eupDir + ":" + pmbPath;
   }
-  
+
   {
 #if 0
     u_char instrument[] = {
@@ -164,7 +164,7 @@ u_char *EUPPlayer_readFile(EUPPlayer *player,
     for (int n = 0; n < 128; n++)
       device->setFmInstrumentParameter(n, instrument);
   }
-  
+
   {
     char fn0[16];
     memcpy(fn0, eupbuf + 0x6e2, 8);
@@ -181,7 +181,7 @@ u_char *EUPPlayer_readFile(EUPPlayer *player,
 	device->setFmInstrumentParameter(n, buf1 + 8 + 48 * n);
     }
   }
-  
+
   {
     char fn0[16];
     memcpy(fn0, eupbuf + 0x6ea, 8);
@@ -198,7 +198,7 @@ u_char *EUPPlayer_readFile(EUPPlayer *player,
     }
   }
 
-  return eupbuf;  
+  return eupbuf;
 }
 
 int main(int argc, char **argv)
@@ -207,7 +207,7 @@ int main(int argc, char **argv)
   dev->outputStream(stdout);
   EUPPlayer *player = new EUPPlayer();
   player->outputDevice(dev);
-  
+
   int c;
   while ((c = getopt(argc, argv, "usbwt:r:v:d:")) != -1)
     switch(c) {
@@ -273,27 +273,27 @@ int main(int argc, char **argv)
       }
       break;
     }
-  
+
   int optindex = optind;
   if (optindex > argc-1) {
     fprintf(stderr, "usage: %s [-t format] [-r rate] [-v vol] [-b|-w] [-d ch[,ch...]] EUP-filename\n", argv[0]);
     exit(1);
   }
-  
+
   char const *nameOfEupFile = argv[optindex++];
   u_char *buf = EUPPlayer_readFile(player, dev, nameOfEupFile);
   if (buf == NULL) {
     fprintf(stderr, "%s: read failed\n", argv[1]);
     exit(1);
   }
-  
+
   player->startPlaying(buf + 2048 + 6);
   while (player->isPlaying())
     player->nextTick();
-  
+
   delete player;
   delete dev;
   delete buf;
-  
+
   return 0;
 }

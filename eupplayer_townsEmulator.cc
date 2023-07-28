@@ -406,10 +406,10 @@ void TownsFmEmulator_Operator::keyOff()
 void TownsFmEmulator_Operator::frequency(int freq)
 {
   int r;
-  
+
   //DB(("freq=%d=%d[Hz]\n", freq, freq/262205));
   _frequency = freq;
-  
+
   r = _specifiedAttackRate;
   if (r != 0) {
     r = r * 2 + (keyscaleTable[freq/262205] >> (3-_keyScale));
@@ -442,7 +442,7 @@ void TownsFmEmulator_Operator::frequency(int freq)
     //DB(("AR=%d->%d, 0-96[db]=%d[ms]\n", _specifiedAttackRate, r, (int)((t*1000)>>12)));
   }
 #endif
-  
+
   r = _specifiedDecayRate;
   if (r != 0) {
     r = r * 2 + (keyscaleTable[freq/262205] >> (3-_keyScale));
@@ -455,7 +455,7 @@ void TownsFmEmulator_Operator::frequency(int freq)
   _decayRate <<= 16 + (r >> 2);
   _decayRate >>= 1;
   _decayRate /= 124;	// r == 4 のとき、0-96db が 123985.92ms
-  
+
   r = _specifiedSustainRate;
   if (r != 0) {
     r = r * 2 + (keyscaleTable[freq/262205] >> (3-_keyScale));
@@ -468,7 +468,7 @@ void TownsFmEmulator_Operator::frequency(int freq)
   _sustainRate <<= 16 + (r >> 2);
   _sustainRate >>= 1;
   _sustainRate /= 124;
-  
+
   r = _specifiedReleaseRate;
   if (r != 0) {
     r = r * 2 + 1;		// このタイミングで良いのかわからん
@@ -488,7 +488,7 @@ void TownsFmEmulator_Operator::frequency(int freq)
 int TownsFmEmulator_Operator::nextTick(int rate, int phaseShift)
 {
   // sampling ひとつ分進める
-  
+
   if (_oldState != _state) {
     //DB(("state %d -> %d\n", _oldState, _state));
     //DB(("(currentLevel = %08x %08x)\n", (int)(_currentLevel>>32), (int)(_currentLevel)));
@@ -498,7 +498,7 @@ int TownsFmEmulator_Operator::nextTick(int rate, int phaseShift)
     };
     _oldState = _state;
   }
-  
+
   switch (_state) {
   case _s_ready:
     return 0;
@@ -551,7 +551,7 @@ int TownsFmEmulator_Operator::nextTick(int rate, int phaseShift)
     // ここには来ないはず
     break;
   };
-  
+
   int64_t level = _currentLevel + _totalLevel;
   int64_t output = 0;
   if (level < ((int64_t)0x7f << 31)) {
@@ -574,13 +574,13 @@ int TownsFmEmulator_Operator::nextTick(int rate, int phaseShift)
     output *= powtbl[511 - ((level>>25)&511)];
     output >>= 16;
     output >>= 1;
-    
+
     if (_multiple > 0)
       _phase += (_frequency * _multiple) / rate;
     else
       _phase += _frequency / (rate << 1);
   }
-  
+
   _lastOutput = output;
   return output;
 }
@@ -657,7 +657,7 @@ void TownsFmEmulator::setInstrumentParameter(u_char const *fmInst,
 	    "TownsFmEmulator::setInstrumentParameter", this);
     return;
   }
-  
+
   _algorithm = instrument[32] & 7;
   _opr[0].feedbackLevel((instrument[32] >> 3) & 7);
   _opr[1].feedbackLevel(0);
@@ -672,7 +672,7 @@ void TownsFmEmulator::setInstrumentParameter(u_char const *fmInst,
 void TownsFmEmulator::nextTick(int *outbuf, int buflen)
 {
   // steptime ひとつ分進める
-  
+
   if (_gateTime > 0) {
     if (--_gateTime <= 0) {
       this->velocity(_offVelocity);
@@ -680,10 +680,10 @@ void TownsFmEmulator::nextTick(int *outbuf, int buflen)
 	_opr[i].keyOff();
     }
   }
-  
+
   if (this->velocity() == 0)
     return;
-  
+
   for (int i = 0; i < buflen; i++) {
     int d = 0;
     int d1, d2, d3, d4;
@@ -747,7 +747,7 @@ void TownsFmEmulator::nextTick(int *outbuf, int buflen)
     default:
       break;
     };
-    
+
     outbuf[i] += d;
   }
 }
@@ -790,7 +790,7 @@ void TownsFmEmulator::recalculateFrequency()
 
   // _frequency は最終的にバイアス 256*1024 倍
   _frequency = (frequencyTable[oct*12] * (int64_t)fnum) >> (13 - 10);
-  
+
   for (int i = 0; i < _numOfOperators; i++)
     _opr[i].frequency(_frequency);
 }
@@ -845,7 +845,7 @@ void TownsPcmEmulator::setInstrumentParameter(u_char const *fmInst,
 void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
 {
   // steptime ひとつ分進める
-  
+
   if (_currentEnvelope == NULL)
     return;
   if (_gateTime > 0 && --_gateTime <= 0) {
@@ -859,7 +859,7 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
     _currentEnvelope = NULL;
     return;
   }
-  
+
   int phaseStep;
   {
     int64_t ps = frequencyTable[_note];
@@ -886,7 +886,7 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
 	// 上との関係もあるしもっといい方法がありそう
 	break;
       }
-    
+
 #if 0
     int output = soundSamples[_phase>>16];
 #else
@@ -973,10 +973,10 @@ void EUP_TownsEmulator_Channel::note(int note, int onVelo, int offVelo, int gate
     n = 0;
   else
     n++;
-  
+
   if (_dev[n] != NULL)
     _dev[n]->note(note, onVelo, offVelo, gateTime);
-  
+
   _lastNotedDeviceNum = n;
   //fprintf(stderr, "ch=%08x, dev=%d, note=%d, on=%d, off=%d, gate=%d\n",
   // this, n, note, onVelo, offVelo, gateTime);
@@ -1052,7 +1052,7 @@ EUP_TownsEmulator::~EUP_TownsEmulator()
 void EUP_TownsEmulator::assignFmDeviceToChannel(int channel)
 {
   CHECK_CHANNEL_NUM("EUP_TownsEmulator::assignFmDeviceToChannel", channel);
-  
+
   EUP_TownsEmulator_MonophonicAudioSynthesizer *dev = new TownsFmEmulator;
   dev->rate(_rate);
   _channel[channel]->add(dev);
@@ -1061,7 +1061,7 @@ void EUP_TownsEmulator::assignFmDeviceToChannel(int channel)
 void EUP_TownsEmulator::assignPcmDeviceToChannel(int channel)
 {
   CHECK_CHANNEL_NUM("EUP_TownsEmulator::assignPcmDeviceToChannel", channel);
-  
+
   EUP_TownsEmulator_MonophonicAudioSynthesizer *dev = new TownsPcmEmulator;
   dev->rate(_rate);
   _channel[channel]->add(dev);
@@ -1110,21 +1110,21 @@ void EUP_TownsEmulator::enable(int ch, bool en=true)
 void EUP_TownsEmulator::nextTick()
 {
   // steptime ひとつ分進める
-  
+
   struct timeval tv = this->timeStep();
   int buflen = _rate * tv.tv_usec; /* 精度上げなきゃ  */
   //buflen /= 1000 * 1000;
   buflen /= 1000 * 1012; // 1010 から 1015 くらいですね、うちでは。曲によるけど。
   buflen++;
   int buf0[buflen];
-  
+
   memset(buf0, 0, sizeof(buf0[0]) * buflen);
-  
+
   for (int i = 0; i < _maxChannelNum; i++) {
     if (_enabled[i])
       _channel[i]->nextTick(buf0, buflen);
   }
-  
+
   if (_outputSampleSize == 1) {
     u_char buf1[buflen];
     for (int i = 0; i < buflen; i++) {
@@ -1151,7 +1151,7 @@ void EUP_TownsEmulator::nextTick()
       }
     }
     fwrite(buf1, sizeof(buf1[0])*2, buflen, _ostr);
-  } 
+  }
 }
 
 void EUP_TownsEmulator::note(int channel, int n,

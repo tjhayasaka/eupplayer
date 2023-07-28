@@ -16,7 +16,7 @@
 # Makefile for EUPPlayer
 #
 
-INCLUDES = @INCLUDES@
+AM_CPPFLAGS = @AM_CPPFLAGS@
 
 bin_PROGRAMS = eupplay
 

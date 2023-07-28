@@ -36,5 +36,5 @@ EUPPLAYER_CHECK_LITTLE_ENDIAN
 if test "$ac_cv_prog_gxx" = yes; then
   CXXFLAGS="$CXXFLAGS -Wall -fomit-frame-pointer -funroll-loops"
 fi
-AC_SUBST(INCLUDES)
+AC_SUBST(AM_CPPFLAGS)
 AC_OUTPUT(Makefile)

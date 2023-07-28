@@ -1,0 +1,17 @@
+.deps/
+INSTALL
+Makefile
+Makefile.in
+autom4te.cache/
+compile
+config.log
+config.status
+configure
+depcomp
+install-sh
+missing
+
+eupplay
+eupplay.1
+mksintbl
+*.o

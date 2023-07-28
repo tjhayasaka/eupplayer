@@ -824,7 +824,7 @@ void TownsPcmEmulator::setControlParameter(int control, int value)
     // panpot
     break;
   default:
-    fprintf(stderr, "TownsFmEmulator::setControlParameter: unknown control %d, val=%d\n", control, value);
+    fprintf(stderr, "TownsPcmEmulator::setControlParameter: unknown control %d, val=%d\n", control, value);
     break;
   };
 }

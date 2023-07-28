@@ -1,6 +1,7 @@
 // $Id: eupplayer_townsInternal.cc,v 1.2 1996/08/20 16:33:38 tjh Exp $
 
 #include <stdio.h>
+#include <string.h>
 #include <sys/types.h>
 #include "eupplayer_townsInternal.h"
 

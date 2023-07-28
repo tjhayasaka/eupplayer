@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include "sintbl.h"
+using namespace std;
 
 /* 0 は 0
    1 は heplay っぽく
@@ -108,18 +109,6 @@ int EUPPlayer::isPlaying() const
 }
 
 typedef int (*CommandProc)(int, EUPPlayer *);
-
-static CommandProc const _commands[0x08] = {
-  EUPPlayer_cmd_8x, EUPPlayer_cmd_9x, EUPPlayer_cmd_ax, EUPPlayer_cmd_bx,
-  EUPPlayer_cmd_cx, EUPPlayer_cmd_dx, EUPPlayer_cmd_ex, EUPPlayer_cmd_fx,
-};
-
-static CommandProc const _fCommands[0x10] = {
-  EUPPlayer_cmd_f0, EUPPlayer_cmd_f1, EUPPlayer_cmd_f2, EUPPlayer_cmd_f3,
-  EUPPlayer_cmd_f4, EUPPlayer_cmd_f5, EUPPlayer_cmd_f6, EUPPlayer_cmd_f7,
-  EUPPlayer_cmd_f8, EUPPlayer_cmd_f9, EUPPlayer_cmd_fa, EUPPlayer_cmd_fb,
-  EUPPlayer_cmd_fc, EUPPlayer_cmd_fd, EUPPlayer_cmd_fe, EUPPlayer_cmd_ff,
-};
 
 int EUPPlayer_cmd_INVALID(int cmd, EUPPlayer *pl)
 {
@@ -229,11 +218,6 @@ int EUPPlayer_cmd_ex(int cmd, EUPPlayer *pl)
 
   pl->_curP += 6;
   return 0;
-}
-
-int EUPPlayer_cmd_fx(int cmd, EUPPlayer *pl)
-{
-  return (_fCommands[cmd & 0x0f])(cmd, pl);
 }
 
 int EUPPlayer_cmd_f0(int cmd, EUPPlayer *pl)
@@ -369,6 +353,23 @@ int EUPPlayer_cmd_ff(int cmd, EUPPlayer *pl)
   pl->_curP += 6;
   return 0;
 }
+
+static CommandProc const _fCommands[0x10] = {
+  EUPPlayer_cmd_f0, EUPPlayer_cmd_f1, EUPPlayer_cmd_f2, EUPPlayer_cmd_f3,
+  EUPPlayer_cmd_f4, EUPPlayer_cmd_f5, EUPPlayer_cmd_f6, EUPPlayer_cmd_f7,
+  EUPPlayer_cmd_f8, EUPPlayer_cmd_f9, EUPPlayer_cmd_fa, EUPPlayer_cmd_fb,
+  EUPPlayer_cmd_fc, EUPPlayer_cmd_fd, EUPPlayer_cmd_fe, EUPPlayer_cmd_ff,
+};
+
+int EUPPlayer_cmd_fx(int cmd, EUPPlayer *pl)
+{
+  return (_fCommands[cmd & 0x0f])(cmd, pl);
+}
+
+static CommandProc const _commands[0x08] = {
+  EUPPlayer_cmd_8x, EUPPlayer_cmd_9x, EUPPlayer_cmd_ax, EUPPlayer_cmd_bx,
+  EUPPlayer_cmd_cx, EUPPlayer_cmd_dx, EUPPlayer_cmd_ex, EUPPlayer_cmd_fx,
+};
 
 void EUPPlayer::nextTick()
 {

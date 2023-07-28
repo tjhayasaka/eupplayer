@@ -1100,7 +1100,7 @@ void EUP_TownsEmulator::outputStream(FILE *ostr)
   _ostr = ostr;
 }
 
-void EUP_TownsEmulator::enable(int ch, bool en=true)
+void EUP_TownsEmulator::enable(int ch, bool en)
 {
   DB(("enable ch=%d, en=%d\n", ch, en));
   CHECK_CHANNEL_NUM("EUP_TownsEmulator::enable", ch);

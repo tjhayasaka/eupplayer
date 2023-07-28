@@ -5,7 +5,7 @@
 
 #include <sys/time.h>
 #include <sys/types.h>
-#include <iostream.h>
+#include <iostream>
 #include "eupplayer_towns.h"
 
 class TownsPcmInstrument;

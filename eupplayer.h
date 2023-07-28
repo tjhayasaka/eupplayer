@@ -5,7 +5,7 @@
 
 #include <sys/time.h>
 #include <sys/types.h>
-#include <iostream.h>
+#include <iostream>
 
 class PolyphonicAudioDevice
 {

@@ -17,12 +17,13 @@
 #include "eupplayer.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <errno.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string>
 #include <vector>
-#include <strstream.h>
+#include <strstream>
 using namespace std;
 #include "eupplayer_townsEmulator.h"
 

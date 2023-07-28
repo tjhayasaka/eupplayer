@@ -33,6 +33,8 @@ eupplay_SOURCES = eupplay.cc \
 
 EXTRA_DIST = README-ja NEWS-ja mksintbl.c eupplay.1.in
 
+CLEANFILES = sintbl
+
 .PHONY: au aiff wav
 au: eupplay
 	cd examples; $(MAKE) au

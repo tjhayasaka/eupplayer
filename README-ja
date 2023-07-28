@@ -1,110 +1,110 @@
 EUPPlayer - EUP Interpreter and Audio Synthesizer.
 Copyright (C) 1995-1997,2000 Tomoaki Hayasaka.
 
-* EUPPlayer �γ���
+* EUPPlayer の概要
 
-EUPPlayer �ϡ��ٻ��� FM-TOWNS �ǰ���Ū�˻��Ѥ���Ƥ������ڥե��������
-�Ǥ��뤤���� EUP �ե�������ᤷ���դ���ץ������Ǥ���
+EUPPlayer は、富士通 FM-TOWNS で一般的に使用されてきた音楽ファイル形式
+であるいわゆる EUP ファイルを解釈し演奏するプログラムです。
 
-EUPPlayer �ϡ�FM-TOWNS ��ɸ����������Ƥ��� FM ������ PCM �����Υ��ߥ�
-�졼�Ȥ�Ԥʤ����������Τ��� PCM �ǡ����ؤ��Ѵ����뤳�Ȥ�����ޤ���
+EUPPlayer は、FM-TOWNS に標準装備されている FM 音源と PCM 音源のエミュ
+レートを行ない、一般性のある PCM データへと変換することが出来ます。
 
-EUPPlayer �ΰ켡���۸���:
+EUPPlayer の一次配布元は:
   http://hellfire.rikne.go.jp/%7Ehayasaka/eupplayer/
 
-* ư��Ķ�
+* 動作環境
 
-UN*X��
+UN*X。
 
-�������ѥ���Ǥ���ư���餷���ȳ�ǧ�����Ķ���:
+一応コンパイルできて動作するらしいと確認した環境は:
 
     Debian GNU/Linux (woody) + egcs-2.95.2
 
-* ����ѥ���
+* コンパイル
 
-����ѥ���ˤϡ��Ƕ�� g++ (2.7.0 �ʹ�) �Ȥ�����б����� libstdc++ ��
-ɬ�פǤ�������������ѥ���ˤ��б����Ƥ��ޤ���
+コンパイルには、最近の g++ (2.7.0 以降) とそれに対応した libstdc++ が
+必要です。クロスコンパイルには対応していません。
 
     $ ./configure 
     $ make
 
-�ޤ���ɬ�פ˱�����
+また、必要に応じて
 
     # make install
 
-* �Ȥ���
+* 使い方
 
-  eupplayer [���ץ����] EUP�ե�����̾
+  eupplayer [オプション] EUPファイル名
 
-  ��:
+  例:
       $ eupplayer pon29.eup >/dev/dsp
       $ eupplayer -r 22050 pon29.eup | \
             sox -r 22050 -t .ub - -t .wav - | bplay
       $ eupplayer -t .sw -r 48000 pon29.eup | \
             sox -r 48000 -t .sw - pon29.wav
 
-���Ϥϡ��ǥե���ȤǤϡ����̵�� 8bit��8000 samples/sec. �ǡ�ɸ�����
-�˹Ԥʤ��ޤ���
+出力は、デフォルトでは、符号無し 8bit、8000 samples/sec. で、標準出力
+に行なわれます。
 
-����ͭ���ʥ��ץ����ϰʲ����̤�Ǥ���
+現在有効なオプションは以下の通りです。
 
-  -r n         ���Ϥ� n samples/sec. �ǹԤʤ����ǥե���Ȥ� 8000��
+  -r n         出力を n samples/sec. で行なう。デフォルトは 8000。
 
-  -t format    ���ϤΥ���ץ�ե����ޥåȤ���ꤹ�롣�ǥե���Ȥ� .ub��
+  -t format    出力のサンプルフォーマットを指定する。デフォルトは .ub。
 
-	       ����Ǥ��� format ��:
+	       指定できる format は:
 
-               .ub     ���̵�� 8bit/sample
-               .sb     ����դ� 8bit/sample
-               .uw     ���̵�� 16bit/sample��LSB first
-               .sw     ����դ� 16bit/sample��LSB first
-               .wu     ���̵�� 16bit/sample��MSB first
-               .ws     ����դ� 16bit/sample��MSB first
+               .ub     符号無し 8bit/sample
+               .sb     符号付き 8bit/sample
+               .uw     符号無し 16bit/sample、LSB first
+               .sw     符号付き 16bit/sample、LSB first
+               .wu     符号無し 16bit/sample、MSB first
+               .ws     符号付き 16bit/sample、MSB first
 
-  -v n         ���ϥ�٥����ꤹ�롣���Ϥ����ͤ����㤷���礭���ǹԤ�
-               ���롣�ǥե���Ȥ� 256��
+  -v n         出力レベルを指定する。出力が数値に比例した大きさで行な
+               われる。デフォルトは 256。
 
-  -d n[,n...]  ���ꤷ�������ͥ�ν��Ϥ�Ԥʤ�ʤ��褦�ˤ��롣
+  -d n[,n...]  指定したチャンネルの出力を行なわないようにする。
 
-ư��˱ƶ��Τ���Ķ��ѿ��ϰʲ����̤�Ǥ���
+動作に影響のある環境変数は以下の通りです。
 
-  EUP_FMINST   FMB �ե�����Υ������ѥ�����ꤷ�ޤ����ºݤˤϡ����Υ�
-	       �������ˡ�EUP �ե�����Τ��ä��ǥ��쥯�ȥ꤬õ�������
-	       ����
+  EUP_FMINST   FMB ファイルのサーチパスを指定します。実際には、このパ
+	       スの前に、EUP ファイルのあったディレクトリが探索されま
+	       す。
 
-	       �ѿ���¸�ߤ��ʤ��Ȥ��Υǥե���ȥѥ��ϡ�
-
-                 .:/usr/local/share/fj2/tone:/usr/share/fj2/tone
-
-  EUP_PCMINST  PMB �ե�����Υ������ѥ�����ꤷ�ޤ����ºݤˤϡ����Υ�
-	       �������ˡ�EUP �ե�����Τ��ä��ǥ��쥯�ȥ꤬õ�������
-	       ����
-
-	       �ѿ���¸�ߤ��ʤ��Ȥ��Υǥե���ȥѥ��ϡ�
+	       変数が存在しないときのデフォルトパスは、
 
                  .:/usr/local/share/fj2/tone:/usr/share/fj2/tone
 
-* �Х�
+  EUP_PCMINST  PMB ファイルのサーチパスを指定します。実際には、このパ
+	       スの前に、EUP ファイルのあったディレクトリが探索されま
+	       す。
 
-TOWNS ��¢�����Ѥ� EUP �ե�����ʳ������������դǤ��ޤ���
+	       変数が存在しないときのデフォルトパスは、
 
-���Ȥ� TOWNS ��ư�������Ȥ��Ƥ⡢��¢������ľ�ܥɥ饤�֤��뤳�ȤϽ���
-�ޤ���
+                 .:/usr/local/share/fj2/tone:/usr/share/fj2/tone
 
-LFO �ʤɡ�̤�����ε�ǽ�����ʤꤢ��ޤ����ޤ��������̤���Ĵ�̤ʤɡ�����
-��ľ�ܴؤ�ѥ�᡼����Ĵ��������Ƥ��ޤ���
+* バグ
 
-* ���۾��
+TOWNS 内蔵音源用の EUP ファイル以外は正しく演奏できません。
 
-EUPPlayer �ϥե꡼���եȥ������Ǥ����ѥ֥�å��ɥᥤ�󥽥եȥ����� 
-(PDS) �ǤϤ���ޤ���EUPPlayer ������ϡ�������� (Tomoaki Hayasaka
-<hayasaka@postman.riken.go.jp>) ���ݻ����Ƥ��ޤ���
+たとえ TOWNS で動かしたとしても、内蔵音源を直接ドライブすることは出来
+ません。
 
-EUPPlayer �Υ��ԡ������ۡ����ѡ���¤�����䡢¾�Υץ������ؤ��Ȥ߹���
-���ϡ�GNU General Public License version 2 �˽����¤꼫ͳ�˹Ԥ��ޤ���
-�����ι԰٤ˤ����äơ�����Ԥ�Ϣ������ɬ�פϤ���ޤ���
+LFO など、未実装の機能がかなりあります。また、減衰量や変調量など、音質
+に直接関るパラメータの調整がされていません。
 
-���۾������ΤʤȤ����ϡ��ե����� COPYING �򻲾Ȥ��Ƥ���������
+* 配布条件
+
+EUPPlayer はフリーソフトウェアです。パブリックドメインソフトウェア 
+(PDS) ではありません。EUPPlayer の著作権は、早坂智明 (Tomoaki Hayasaka
+<hayasaka@postman.riken.go.jp>) が保持しています。
+
+EUPPlayer のコピー、配布、使用、改造、販売、他のプログラムへの組み込み
+等は、GNU General Public License version 2 に従う限り自由に行えます。
+これらの行為にあたって、著作権者に連絡する必要はありません。
+
+配布条件の正確なところは、ファイル COPYING を参照してください。
 
 --
 Tomoaki Hayasaka <hayasaka@postman.riken.go.jp>

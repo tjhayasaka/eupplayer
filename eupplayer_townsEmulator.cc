@@ -261,7 +261,7 @@ int TownsPcmEnvelope::nextTick()
 #endif
     break;
   default:
-    // ¤³¤³¤Ë¤ÏÍè¤Ê¤¤¤Ï¤º
+    // ã“ã“ã«ã¯æ¥ãªã„ã¯ãš
     break;
   };
 
@@ -317,7 +317,7 @@ void TownsPcmInstrument::registerSound(TownsPcmSound const *sound)
 
 TownsPcmSound const *TownsPcmInstrument::findSound(int note) const
 {
-  // ¾¯¤Ê¤¯¤È¤â¤É¤ì¤«¤Î split ¤òÁªÂò¤Ç¤­¤ë¤è¤¦¤Ë¤·¤Æ¤ª¤³¤¦
+  // å°‘ãªãã¨ã‚‚ã©ã‚Œã‹ã® split ã‚’é¸æŠã§ãã‚‹ã‚ˆã†ã«ã—ã¦ãŠã“ã†
   int splitNum;
   for (splitNum = 0; splitNum < _maxSplitNum-1; splitNum++)
     if (note <= _split[splitNum])
@@ -327,7 +327,7 @@ TownsPcmSound const *TownsPcmInstrument::findSound(int note) const
 
 TownsPcmEnvelope const *TownsPcmInstrument::findEnvelope(int note) const
 {
-  // ¾¯¤Ê¤¯¤È¤â¤É¤ì¤«¤Î split ¤òÁªÂò¤Ç¤­¤ë¤è¤¦¤Ë¤·¤Æ¤ª¤³¤¦
+  // å°‘ãªãã¨ã‚‚ã©ã‚Œã‹ã® split ã‚’é¸æŠã§ãã‚‹ã‚ˆã†ã«ã—ã¦ãŠã“ã†
   int splitNum;
   for (splitNum = 0; splitNum < _maxSplitNum-1; splitNum++)
     if (note <= _split[splitNum])
@@ -385,7 +385,7 @@ void TownsFmEmulator_Operator::setInstrumentParameter(u_char const *instrument)
   _specifiedSustainRate = instrument[24] & 31;
   _specifiedSustainLevel = (instrument[28] >> 4) & 15;
   _specifiedReleaseRate = instrument[28] & 15;
-  _state = _s_ready; // ËÜÊª¤Ç¤Ï¤É¤¦¤Ê¤Î¤«¤Ê?
+  _state = _s_ready; // æœ¬ç‰©ã§ã¯ã©ã†ãªã®ã‹ãª?
   this->velocity(_velocity);
 }
 
@@ -393,8 +393,8 @@ void TownsFmEmulator_Operator::keyOn()
 {
   _state = _s_attacking;
   _tickCount = 0;
-  _phase = 0;			// ¤É¤¦¤â¡¢¼Âºİ¤³¤¦¤é¤·¤¤
-  _currentLevel = ((int64_t)0x7f << 31); // ¤³¤ì¤â¡¢¼Âºİ¤³¤¦¤é¤·¤¤
+  _phase = 0;			// ã©ã†ã‚‚ã€å®Ÿéš›ã“ã†ã‚‰ã—ã„
+  _currentLevel = ((int64_t)0x7f << 31); // ã“ã‚Œã‚‚ã€å®Ÿéš›ã“ã†ã‚‰ã—ã„
 }
 
 void TownsFmEmulator_Operator::keyOff()
@@ -414,15 +414,15 @@ void TownsFmEmulator_Operator::frequency(int freq)
   if (r != 0) {
     r = r * 2 + (keyscaleTable[freq/262205] >> (3-_keyScale));
     if (r >= 64)
-      r = 63; // ¤¹¤ë¤Ù¤­¤Ê¤ó¤À¤í¤¦¤È¤Ï»×¤¦¤ó¤À¤±¤É (ÀÖp.207)
+      r = 63; // ã™ã‚‹ã¹ããªã‚“ã ã‚ã†ã¨ã¯æ€ã†ã‚“ã ã‘ã© (èµ¤p.207)
   }
 #if 0
   _attackRate = 0x80;
   _attackRate *= powtbl[(r&3) << 7];
   _attackRate <<= 16 + (r >> 2);
   _attackRate >>= 1;
-  _attackRate /= 9;  // r == 4 ¤Î¤È¤­¡¢0-96db ¤¬ 8970.24ms
-  //_attackRate /= 4;  // r == 4 ¤Î¤È¤­¡¢0-96db ¤¬ 8970.24ms
+  _attackRate /= 9;  // r == 4 ã®ã¨ãã€0-96db ãŒ 8970.24ms
+  //_attackRate /= 4;  // r == 4 ã®ã¨ãã€0-96db ãŒ 8970.24ms
   //DB(("AR=%d->%d, 0-96[db]=%d[ms]\n", _specifiedAttackRate, r, (((int64_t)0x80<<31) * 1000) / _attackRate));
 #else
   {
@@ -433,12 +433,12 @@ void TownsFmEmulator_Operator::frequency(int freq)
     else {
       t = powtbl[(r&3) << 7];
       t <<= (r >> 2);
-      t *= 41;			// r == 20 ¤Î¤È¤­¡¢0-96[db] ¤¬ 10.01[ms] == 41.00096
+      t *= 41;			// r == 20 ã®ã¨ãã€0-96[db] ãŒ 10.01[ms] == 41.00096
       t >>= (15 + 5);
       t *= 127 - _specifiedTotalLevel;
       t /= 127;
     }
-    _attackTime = t;		// 1 ÉÃ == (1 << 12)
+    _attackTime = t;		// 1 ç§’ == (1 << 12)
     //DB(("AR=%d->%d, 0-96[db]=%d[ms]\n", _specifiedAttackRate, r, (int)((t*1000)>>12)));
   }
 #endif
@@ -454,7 +454,7 @@ void TownsFmEmulator_Operator::frequency(int freq)
   _decayRate *= powtbl[(r&3) << 7];
   _decayRate <<= 16 + (r >> 2);
   _decayRate >>= 1;
-  _decayRate /= 124;	// r == 4 ¤Î¤È¤­¡¢0-96db ¤¬ 123985.92ms
+  _decayRate /= 124;	// r == 4 ã®ã¨ãã€0-96db ãŒ 123985.92ms
 
   r = _specifiedSustainRate;
   if (r != 0) {
@@ -471,9 +471,9 @@ void TownsFmEmulator_Operator::frequency(int freq)
 
   r = _specifiedReleaseRate;
   if (r != 0) {
-    r = r * 2 + 1;		// ¤³¤Î¥¿¥¤¥ß¥ó¥°¤ÇÎÉ¤¤¤Î¤«¤ï¤«¤é¤ó
+    r = r * 2 + 1;		// ã“ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§è‰¯ã„ã®ã‹ã‚ã‹ã‚‰ã‚“
     r = r * 2 + (keyscaleTable[freq/262205] >> (3-_keyScale));
-    // KS ¤Ë¤è¤ëÊäÀµ¤Ï¤¢¤ë¤é¤·¤¤¡£ÀÖp.206 ¤Ç¤Ïµ­½Ò¤µ¤ì¤Æ¤Ê¤¤¤±¤É¡£
+    // KS ã«ã‚ˆã‚‹è£œæ­£ã¯ã‚ã‚‹ã‚‰ã—ã„ã€‚èµ¤p.206 ã§ã¯è¨˜è¿°ã•ã‚Œã¦ãªã„ã‘ã©ã€‚
     if (r >= 64)
       r = 63;
   }
@@ -487,7 +487,7 @@ void TownsFmEmulator_Operator::frequency(int freq)
 
 int TownsFmEmulator_Operator::nextTick(int rate, int phaseShift)
 {
-  // sampling ¤Ò¤È¤ÄÊ¬¿Ê¤á¤ë
+  // sampling ã²ã¨ã¤åˆ†é€²ã‚ã‚‹
 
   if (_oldState != _state) {
     //DB(("state %d -> %d\n", _oldState, _state));
@@ -548,7 +548,7 @@ int TownsFmEmulator_Operator::nextTick(int rate, int phaseShift)
 #endif
     break;
   default:
-    // ¤³¤³¤Ë¤ÏÍè¤Ê¤¤¤Ï¤º
+    // ã“ã“ã«ã¯æ¥ãªã„ã¯ãš
     break;
   };
 
@@ -567,10 +567,10 @@ int TownsFmEmulator_Operator::nextTick(int rate, int phaseShift)
     };
 
     _phase &= 0x3ffff;
-    phaseShift >>= 2;		// Àµ¤·¤¤ÊÑÄ´ÎÌ¤Ï?  3 ¤¸¤ã¾®¤µ¤¹¤®¤Ç 2 ¤¸¤ãÂç¤­¤¤¤è¤¦¤Ê¡£
-    phaseShift += (((int64_t)(_lastOutput) * feedback[_feedbackLevel]) >> 16); // Àµ¤·¤¤ÊÑÄ´ÎÌ¤Ï?  16¤«¤é17¤Î´Ö¤Î¤è¤¦¤À¤±¤É¡£
+    phaseShift >>= 2;		// æ­£ã—ã„å¤‰èª¿é‡ã¯?  3 ã˜ã‚ƒå°ã•ã™ãã§ 2 ã˜ã‚ƒå¤§ãã„ã‚ˆã†ãªã€‚
+    phaseShift += (((int64_t)(_lastOutput) * feedback[_feedbackLevel]) >> 16); // æ­£ã—ã„å¤‰èª¿é‡ã¯?  16ã‹ã‚‰17ã®é–“ã®ã‚ˆã†ã ã‘ã©ã€‚
     output = sintbl[((_phase >> 7) + phaseShift) & 0x7ff];
-    output >>= (level >> 34);	// Àµ¤·¤¤¸º¿êÎÌ¤Ï?
+    output >>= (level >> 34);	// æ­£ã—ã„æ¸›è¡°é‡ã¯?
     output *= powtbl[511 - ((level>>25)&511)];
     output >>= 16;
     output >>= 1;
@@ -610,7 +610,7 @@ void TownsFmEmulator::velocity(int velo)
 {
   EUP_TownsEmulator_MonophonicAudioSynthesizer::velocity(velo);
 #if 0
-  int v = (velo * _control7) >> 7; // ¤³¤ì¤À¤ÈÀºÅÙÎÉ¤¯¤Ê¤¤¤Ç¤¹¤Í
+  int v = (velo * _control7) >> 7; // ã“ã‚Œã ã¨ç²¾åº¦è‰¯ããªã„ã§ã™ã­
 #else
   int v = velo + (_control7 - 127) * 4;
 #endif
@@ -671,7 +671,7 @@ void TownsFmEmulator::setInstrumentParameter(u_char const *fmInst,
 
 void TownsFmEmulator::nextTick(int *outbuf, int buflen)
 {
-  // steptime ¤Ò¤È¤ÄÊ¬¿Ê¤á¤ë
+  // steptime ã²ã¨ã¤åˆ†é€²ã‚ã‚‹
 
   if (_gateTime > 0) {
     if (--_gateTime <= 0) {
@@ -771,13 +771,13 @@ void TownsFmEmulator::pitchBend(int value)
 
 void TownsFmEmulator::recalculateFrequency()
 {
-  // MIDI ¤È¤â°ã¤¦¤·....
-  // ¤É¤¦¤¤¤¦»ÅÍÍ¤Ê¤ó¤À¤í¤¦¤«?
-  // ¤È»×¤Ã¤¿¤é¡¢¤Ê¤ó¤È¡¢¤³¤ì (¢­) ¤¬Àµ²ò¤é¤·¤¤¡£
+  // MIDI ã¨ã‚‚é•ã†ã—....
+  // ã©ã†ã„ã†ä»•æ§˜ãªã‚“ã ã‚ã†ã‹?
+  // ã¨æ€ã£ãŸã‚‰ã€ãªã‚“ã¨ã€ã“ã‚Œ (â†“) ãŒæ­£è§£ã‚‰ã—ã„ã€‚
   int64_t basefreq = frequencyTable[_note];
   int cfreq = frequencyTable[_note - (_note % 12)];
   int oct = _note / 12;
-  int fnum = (basefreq << 13) / cfreq; // OPL ¤Î fnum ¤ÈÆ±¤¸¤è¤¦¤Ê¤â¤Î¡£
+  int fnum = (basefreq << 13) / cfreq; // OPL ã® fnum ã¨åŒã˜ã‚ˆã†ãªã‚‚ã®ã€‚
   fnum += _frequencyOffs - 0x2000;
   if (fnum < 0x2000) {
     fnum += 0x2000;
@@ -788,7 +788,7 @@ void TownsFmEmulator::recalculateFrequency()
     oct++;
   }
 
-  // _frequency ¤ÏºÇ½ªÅª¤Ë¥Ğ¥¤¥¢¥¹ 256*1024 ÇÜ
+  // _frequency ã¯æœ€çµ‚çš„ã«ãƒã‚¤ã‚¢ã‚¹ 256*1024 å€
   _frequency = (frequencyTable[oct*12] * (int64_t)fnum) >> (13 - 10);
 
   for (int i = 0; i < _numOfOperators; i++)
@@ -844,7 +844,7 @@ void TownsPcmEmulator::setInstrumentParameter(u_char const *fmInst,
 
 void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
 {
-  // steptime ¤Ò¤È¤ÄÊ¬¿Ê¤á¤ë
+  // steptime ã²ã¨ã¤åˆ†é€²ã‚ã‚‹
 
   if (_currentEnvelope == NULL)
     return;
@@ -870,8 +870,8 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
     ps >>= 16;
     phaseStep = ps;
   }
-  int loopLength = _currentSound->loopLength() << 16; // ¤¢¤é¤«¤¸¤á·×»»¤·¤Æ
-  int numSamples = _currentSound->numSamples() << 16; // ¤ª¤¯¤Î¤Ï´í¸±¤À¤¾
+  int loopLength = _currentSound->loopLength() << 16; // ã‚ã‚‰ã‹ã˜ã‚è¨ˆç®—ã—ã¦
+  int numSamples = _currentSound->numSamples() << 16; // ãŠãã®ã¯å±é™ºã ã
   signed char const *soundSamples = _currentSound->samples();
   for (int i = 0; i < buflen; i++) {
     if (loopLength > 0)
@@ -883,14 +883,14 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
 	this->velocity(0);
 	delete _currentEnvelope;
 	_currentEnvelope = NULL;
-	// ¾å¤È¤Î´Ø·¸¤â¤¢¤ë¤·¤â¤Ã¤È¤¤¤¤ÊıË¡¤¬¤¢¤ê¤½¤¦
+	// ä¸Šã¨ã®é–¢ä¿‚ã‚‚ã‚ã‚‹ã—ã‚‚ã£ã¨ã„ã„æ–¹æ³•ãŒã‚ã‚Šãã†
 	break;
       }
 
 #if 0
     int output = soundSamples[_phase>>16];
 #else
-    // Àş·¿Êä´Ö¤¹¤ë¡£
+    // ç·šå‹è£œé–“ã™ã‚‹ã€‚
     int output;
     {
       int phase0 = _phase;
@@ -907,14 +907,14 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
       output >>= 16;
     }
 #endif
-    output *= this->velocity(); // ¿®¤¸¤é¤ì¤Ê¤¤¤«¤âÃÎ¤ì¤Ê¤¤¤±¤É¡¢FM ¤È°ã¤¦¤ó¤Ç¤¹¡£
+    output *= this->velocity(); // ä¿¡ã˜ã‚‰ã‚Œãªã„ã‹ã‚‚çŸ¥ã‚Œãªã„ã‘ã©ã€FM ã¨é•ã†ã‚“ã§ã™ã€‚
     output <<= 1;
     output *= _currentEnvelope->nextTick();
     output >>= 7;
-    output *= _control7;	// Àµ¤·¤¤¸º¿êÎÌ¤Ï?
+    output *= _control7;	// æ­£ã—ã„æ¸›è¡°é‡ã¯?
     output >>= 7;
-    // FM ¤È¤Î²»ÎÌ¥Ğ¥é¥ó¥¹¤ò¼è¤ë¡£
-    output *= 185; // ¤¯¤é¤¤?  È¾Ã¼¤Ç¤¹¤Í¤§¡£
+    // FM ã¨ã®éŸ³é‡ãƒãƒ©ãƒ³ã‚¹ã‚’å–ã‚‹ã€‚
+    output *= 185; // ãã‚‰ã„?  åŠç«¯ã§ã™ã­ã‡ã€‚
     output >>= 8;
     outbuf[i] += output;
     _phase += phaseStep;
@@ -984,7 +984,7 @@ void EUP_TownsEmulator_Channel::note(int note, int onVelo, int offVelo, int gate
 
 void EUP_TownsEmulator_Channel::setControlParameter(int control, int value)
 {
-  // ¤¤¤¤¤Î¤«¤³¤ì¤Ç?
+  // ã„ã„ã®ã‹ã“ã‚Œã§?
   for (int n = 0; _dev[n] != NULL; n++)
     _dev[n]->setControlParameter(control, value);
 }
@@ -998,7 +998,7 @@ void EUP_TownsEmulator_Channel::setInstrumentParameter(u_char const *fmInst,
 
 void EUP_TownsEmulator_Channel::pitchBend(int value)
 {
-  // ¤¤¤¤¤Î¤«¤³¤ì¤Ç?
+  // ã„ã„ã®ã‹ã“ã‚Œã§?
   for (int n = 0; _dev[n] != NULL; n++)
     _dev[n]->pitchBend(value);
 }
@@ -1109,12 +1109,12 @@ void EUP_TownsEmulator::enable(int ch, bool en=true)
 
 void EUP_TownsEmulator::nextTick()
 {
-  // steptime ¤Ò¤È¤ÄÊ¬¿Ê¤á¤ë
+  // steptime ã²ã¨ã¤åˆ†é€²ã‚ã‚‹
 
   struct timeval tv = this->timeStep();
-  int buflen = _rate * tv.tv_usec; /* ÀºÅÙ¾å¤²¤Ê¤­¤ã  */
+  int buflen = _rate * tv.tv_usec; /* ç²¾åº¦ä¸Šã’ãªãã‚ƒ  */
   //buflen /= 1000 * 1000;
-  buflen /= 1000 * 1012; // 1010 ¤«¤é 1015 ¤¯¤é¤¤¤Ç¤¹¤Í¡¢¤¦¤Á¤Ç¤Ï¡£¶Ê¤Ë¤è¤ë¤±¤É¡£
+  buflen /= 1000 * 1012; // 1010 ã‹ã‚‰ 1015 ãã‚‰ã„ã§ã™ã­ã€ã†ã¡ã§ã¯ã€‚æ›²ã«ã‚ˆã‚‹ã‘ã©ã€‚
   buflen++;
   int buf0[buflen];
 
@@ -1130,7 +1130,7 @@ void EUP_TownsEmulator::nextTick()
     for (int i = 0; i < buflen; i++) {
       int d = buf0[i];
       d *= this->volume();
-      d >>= 10;			// ¤¤¤¤¤«¤²¤ó¤À¤Ê¤¡
+      d >>= 10;			// ã„ã„ã‹ã’ã‚“ã ãªã
       d ^= _outputSampleUnsigned?0x8000:0;
       buf1[i] = ((d >> 8) & 0xff);
     }
@@ -1140,7 +1140,7 @@ void EUP_TownsEmulator::nextTick()
     for (int i = 0; i < buflen; i++) {
       int d = buf0[i];
       d *= this->volume();
-      d >>= 10;			// ¤¤¤¤¤«¤²¤ó¤À¤Ê¤¡
+      d >>= 10;			// ã„ã„ã‹ã’ã‚“ã ãªã
       d ^= _outputSampleUnsigned?0x8000:0;
       if (_outputSampleLSBFirst) {
 	buf1[i*2+0] = ((d >> 8) & 0xff);

@@ -77,7 +77,7 @@ u_char *EUPPlayer_readFile(EUPPlayer *player,
 			   TownsAudioDevice *device,
 			   string const &nameOfEupFile)
 {
-  // �Ȥꤢ����, TOWNS emu �Τߤ��б�.
+  // とりあえず, TOWNS emu のみに対応.
 
   u_char *eupbuf = NULL;
   player->stopPlaying();
@@ -108,7 +108,7 @@ u_char *EUPPlayer_readFile(EUPPlayer *player,
   }
 
   player->tempo(eupbuf[2048 + 5] + 30);
-  // ����ƥ�ݤ�����ΤĤ��.  �����������?
+  // 初期テンポの設定のつもり.  これで正しい?
 
   for (int n = 0; n < 32; n++)
     player->mapTrack_toChannel(n, eupbuf[0x394 + n]);

@@ -9,9 +9,9 @@
 #include <unistd.h>
 #include "sintbl.h"
 
-/* 0 ¤Ï 0
-   1 ¤Ï heplay ¤Ã¤Ý¤¯
-   2 ¤Ï ½ãÀµ¤Ã¤Ý¤¯ */
+/* 0 ã¯ 0
+   1 ã¯ heplay ã£ã½ã
+   2 ã¯ ç´”æ­£ã£ã½ã */
 #define OVERSTEP 2
 
 #ifdef DEBUG
@@ -35,8 +35,8 @@ static void dbprintf(char *fmt, ...)
 
 #if OVERSTEP == 2
 #define COMPRESSOVERSTEPS if (stepTime >= 384) stepTime = 383
-  /* .... >= 384 ¤Ã¤Æ¤Î¤Ï steptime >= ¾®ÀáÄ¹ ¤Î¤Ä¤â¤ê¡£
-     HEat ¤Çºî¤é¤ì¤¿ .eup ¥Õ¥¡¥¤¥ë¤ÎÃæ¤ËÂ¸ºß¤¹¤ë¤³¤È¤¬¤¢¤ë¡£  */
+  /* .... >= 384 ã£ã¦ã®ã¯ steptime >= å°ç¯€é•· ã®ã¤ã‚‚ã‚Šã€‚
+     HEat ã§ä½œã‚‰ã‚ŒãŸ .eup ãƒ•ã‚¡ã‚¤ãƒ«ã®ä¸­ã«å­˜åœ¨ã™ã‚‹ã“ã¨ãŒã‚ã‚‹ã€‚  */
 #else
 #define COMPRESSOVERSTEPS
 #endif
@@ -139,28 +139,28 @@ int EUPPlayer_cmd_NOTSUPPORTED(int cmd, EUPPlayer *pl)
 
 int EUPPlayer_cmd_8x(int cmd, EUPPlayer *pl)
 {
-  /* ¥Î¡¼¥È¥ª¥Õ */
+  /* ãƒŽãƒ¼ãƒˆã‚ªãƒ• */
   DB_PROCESSING("Note off");
 
-  /* Ã±ÆÈ¤ÇÍè¤ë¤Ï¤º¤¬Ìµ¤¤¤«¤é¥¨¥é¡¼¤Ë¤¹¤ë.  ¤Ç¤â, DATA CONTINUE ¤ÎÄ¾¸å
-     ¤Ê¤éÍ­¤êÆÀ¤ë¤«¤Ê?  */
+  /* å˜ç‹¬ã§æ¥ã‚‹ã¯ãšãŒç„¡ã„ã‹ã‚‰ã‚¨ãƒ©ãƒ¼ã«ã™ã‚‹.  ã§ã‚‚, DATA CONTINUE ã®ç›´å¾Œ
+     ãªã‚‰æœ‰ã‚Šå¾—ã‚‹ã‹ãª?  */
 
   return EUPPlayer_cmd_INVALID(cmd, pl);
 }
 
 int EUPPlayer_cmd_9x(int cmd, EUPPlayer *pl)
 {
-  /* ¥Î¡¼¥È¥ª¥ó */
+  /* ãƒŽãƒ¼ãƒˆã‚ªãƒ³ */
   WAIT4NEXTSTEP;
   DB_PROCESSING("Note on");
 
   if (((pl->_curP)[6] & 0xf0) != 0x80) {
-    /* ¼¡¤Î¥³¥Þ¥ó¥É¤¬ÉÔÀµ¤À¤Ã¤Æ¥á¥Ã¥»¡¼¥¸½Ð¤µ¤Ê¤­¤ã¤Ê¤¡  */
+    /* æ¬¡ã®ã‚³ãƒžãƒ³ãƒ‰ãŒä¸æ­£ã ã£ã¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡ºã•ãªãã‚ƒãªã  */
     return EUPPlayer_cmd_INVALID(cmd, pl);
   }
 
   if ((cmd & 0x0f) != 0)
-    DB(("MIDI-ch is not zero (%02x).\n", cmd)); // pb_theme ¤Ê¤É
+    DB(("MIDI-ch is not zero (%02x).\n", cmd)); // pb_theme ãªã©
 
   int track = (pl->_curP)[1];
   int note = (pl->_curP)[4];
@@ -171,7 +171,7 @@ int EUPPlayer_cmd_9x(int cmd, EUPPlayer *pl)
   //DB(("tr %02x\n", track));
   //DB(("step=%d, track=%d, note=%d, on=%d, gate=%d, off=%d\n", stepTime, track, note, onVelo, gateTime, offVelo));
   if (offVelo == 0 || offVelo >= 0x80)
-    offVelo = onVelo; // ¤³¤ì¤Ç¤¤¤¤¤Î¤À¤í¤¦¤«?  (³¥p.437)
+    offVelo = onVelo; // ã“ã‚Œã§ã„ã„ã®ã ã‚ã†ã‹?  (ç°p.437)
   pl->_outputDev->note(pl->_track2channel[track], note, onVelo, offVelo, gateTime);
 
   pl->_curP += 12;
@@ -180,14 +180,14 @@ int EUPPlayer_cmd_9x(int cmd, EUPPlayer *pl)
 
 int EUPPlayer_cmd_ax(int cmd, EUPPlayer *pl)
 {
-  /* ¥Ý¥ê¥Õ¥©¥Ë¥Ã¥¯¥¢¥Õ¥¿¡¼¥¿¥Ã¥Á */
+  /* ãƒãƒªãƒ•ã‚©ãƒ‹ãƒƒã‚¯ã‚¢ãƒ•ã‚¿ãƒ¼ã‚¿ãƒƒãƒ */
   DB_PROCESSING("Polyphonic after touch");
   return EUPPlayer_cmd_NOTSUPPORTED(cmd, pl);
 }
 
 int EUPPlayer_cmd_bx(int cmd, EUPPlayer *pl)
 {
-  /* ¥³¥ó¥È¥í¡¼¥ë¥Á¥§¥ó¥¸ */
+  /* ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ãƒã‚§ãƒ³ã‚¸ */
   WAIT4NEXTSTEP;
   DB_PROCESSING("Control change");
   int track = (pl->_curP)[1];
@@ -200,7 +200,7 @@ int EUPPlayer_cmd_bx(int cmd, EUPPlayer *pl)
 
 int EUPPlayer_cmd_cx(int cmd, EUPPlayer *pl)
 {
-  /* ¥×¥í¥°¥é¥à¥Á¥§¥ó¥¸ */
+  /* ãƒ—ãƒ­ã‚°ãƒ©ãƒ ãƒã‚§ãƒ³ã‚¸ */
   WAIT4NEXTSTEP;
   DB_PROCESSING("Program change");
   int track = (pl->_curP)[1];
@@ -212,14 +212,14 @@ int EUPPlayer_cmd_cx(int cmd, EUPPlayer *pl)
 
 int EUPPlayer_cmd_dx(int cmd, EUPPlayer *pl)
 {
-  /* ¥Á¥ã¥ó¥Í¥ë¥¢¥Õ¥¿¡¼¥¿¥Ã¥Á */
+  /* ãƒãƒ£ãƒ³ãƒãƒ«ã‚¢ãƒ•ã‚¿ãƒ¼ã‚¿ãƒƒãƒ */
   DB_PROCESSING("Channel after touch");
   return EUPPlayer_cmd_NOTSUPPORTED(cmd, pl);
 }
 
 int EUPPlayer_cmd_ex(int cmd, EUPPlayer *pl)
 {
-  /* ¥Ô¥Ã¥Á¥Ù¥ó¥É */
+  /* ãƒ”ãƒƒãƒãƒ™ãƒ³ãƒ‰ */
   WAIT4NEXTSTEP;
   DB_PROCESSING("Pitch bend");
 
@@ -238,32 +238,32 @@ int EUPPlayer_cmd_fx(int cmd, EUPPlayer *pl)
 
 int EUPPlayer_cmd_f0(int cmd, EUPPlayer *pl)
 {
-  /* ¥¨¥¯¥¹¥¯¥ë¡¼¥·¥Ö¥¹¥Æ¡¼¥¿¥¹ */
+  /* ã‚¨ã‚¯ã‚¹ã‚¯ãƒ«ãƒ¼ã‚·ãƒ–ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ */
   DB_PROCESSING("Exclusive status");
   return EUPPlayer_cmd_NOTSUPPORTED(cmd, pl);
 }
 
 int EUPPlayer_cmd_f1(int cmd, EUPPlayer *pl)
 {
-  /* Ì¤ÄêµÁ */
+  /* æœªå®šç¾© */
   DB_PROCESSING("Undefined");
   return EUPPlayer_cmd_INVALID(cmd, pl);
 }
 
 int EUPPlayer_cmd_f2(int cmd, EUPPlayer *pl)
 {
-  /* ¾®Àá¥Þ¡¼¥«¡¼ */
+  /* å°ç¯€ãƒžãƒ¼ã‚«ãƒ¼ */
   WAIT4NEXTSTEP;
   DB_PROCESSING("Bar");
 
 #if OVERSTEP == 0 || OVERSTEP == 2
   pl->_stepTime = 0;
-  // »ÅÍÍÄÌ¤ê¤À¤È¤³¤¦¤¹¤ë¤Ù¤­¤Ê¤Î¤À¤È»×¤¦
-  // ¤¿¤À¤·¡¢½ãÀµ¥×¥ì¥¤¥ä¡¼¤Ç¤Ï¤µ¤é¤ËÊÑ¤Ê¤³¤È¤ò¤ä¤Ã¤Æ¤ë¤Ã¤Ý¤¤¡£
+  // ä»•æ§˜é€šã‚Šã ã¨ã“ã†ã™ã‚‹ã¹ããªã®ã ã¨æ€ã†
+  // ãŸã ã—ã€ç´”æ­£ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã§ã¯ã•ã‚‰ã«å¤‰ãªã“ã¨ã‚’ã‚„ã£ã¦ã‚‹ã£ã½ã„ã€‚
 #endif
 #if OVERSTEP == 1
   pl->_stepTime -= stepTime;
-  // ¤³¤¦¤¹¤ë¤È heplay ¤Ã¤Ý¤¤
+  // ã“ã†ã™ã‚‹ã¨ heplay ã£ã½ã„
 #endif
   pl->_curP += 6;
   return 0;
@@ -271,42 +271,42 @@ int EUPPlayer_cmd_f2(int cmd, EUPPlayer *pl)
 
 int EUPPlayer_cmd_f3(int cmd, EUPPlayer *pl)
 {
-  /* Ì¤ÄêµÁ */
+  /* æœªå®šç¾© */
   DB_PROCESSING("Undefined");
   return EUPPlayer_cmd_INVALID(cmd, pl);
 }
 
 int EUPPlayer_cmd_f4(int cmd, EUPPlayer *pl)
 {
-  /* Ì¤ÄêµÁ */
+  /* æœªå®šç¾© */
   DB_PROCESSING("Undefined");
   return EUPPlayer_cmd_INVALID(cmd, pl);
 }
 
 int EUPPlayer_cmd_f5(int cmd, EUPPlayer *pl)
 {
-  /* Ì¤ÄêµÁ */
+  /* æœªå®šç¾© */
   DB_PROCESSING("Undefined");
   return EUPPlayer_cmd_INVALID(cmd, pl);
 }
 
 int EUPPlayer_cmd_f6(int cmd, EUPPlayer *pl)
 {
-  /* Ì¤ÄêµÁ */
+  /* æœªå®šç¾© */
   DB_PROCESSING("Undefined");
   return EUPPlayer_cmd_INVALID(cmd, pl);
 }
 
 int EUPPlayer_cmd_f7(int cmd, EUPPlayer *pl)
 {
-  /* END OF ¥¨¥¯¥¹¥¯¥ë¡¼¥·¥Ö */
+  /* END OF ã‚¨ã‚¯ã‚¹ã‚¯ãƒ«ãƒ¼ã‚·ãƒ– */
   DB_PROCESSING("End of exclusive");
   return EUPPlayer_cmd_NOTSUPPORTED(cmd, pl);
 }
 
 int EUPPlayer_cmd_f8(int cmd, EUPPlayer *pl)
 {
-  /* ¥Æ¥ó¥Ý */
+  /* ãƒ†ãƒ³ãƒ */
   WAIT4NEXTSTEP;
   DB_PROCESSING("Tempo");
   int t = 30 + (pl->_curP)[4] + ((pl->_curP)[5] << 7);
@@ -317,7 +317,7 @@ int EUPPlayer_cmd_f8(int cmd, EUPPlayer *pl)
 
 int EUPPlayer_cmd_f9(int cmd, EUPPlayer *pl)
 {
-  /* Ì¤ÄêµÁ */
+  /* æœªå®šç¾© */
   DB_PROCESSING("Undefined");
   return EUPPlayer_cmd_INVALID(cmd, pl);
 }
@@ -331,7 +331,7 @@ int EUPPlayer_cmd_fa(int cmd, EUPPlayer *pl)
 
 int EUPPlayer_cmd_fb(int cmd, EUPPlayer *pl)
 {
-  /* ¥Ñ¥¿¡¼¥óÈÖ¹æ */
+  /* ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå· */
   DB_PROCESSING("Pattern number");
   return EUPPlayer_cmd_NOTSUPPORTED(cmd, pl);
 }
@@ -348,13 +348,13 @@ int EUPPlayer_cmd_fd(int cmd, EUPPlayer *pl)
   /* DATA CONTINUE */
   WAIT4NEXTSTEP;
   DB_PROCESSING("Data continue");
-  pl->stopPlaying();		/* ËÜÍè¤Ï°ì»þÄä»ß */
+  pl->stopPlaying();		/* æœ¬æ¥ã¯ä¸€æ™‚åœæ­¢ */
   return EUPPlayer_cmd_NOTSUPPORTED(cmd, pl);
 }
 
 int EUPPlayer_cmd_fe(int cmd, EUPPlayer *pl)
 {
-  /* ½ªÃ¼¥Þ¡¼¥«¡¼ */
+  /* çµ‚ç«¯ãƒžãƒ¼ã‚«ãƒ¼ */
   WAIT4NEXTSTEP;
   DB_PROCESSING("End mark");
   DB(("EUPPlayer: playing terminated.\n"));
@@ -364,7 +364,7 @@ int EUPPlayer_cmd_fe(int cmd, EUPPlayer *pl)
 
 int EUPPlayer_cmd_ff(int cmd, EUPPlayer *pl)
 {
-  /* ¥À¥ß¡¼¥³¡¼¥É */
+  /* ãƒ€ãƒŸãƒ¼ã‚³ãƒ¼ãƒ‰ */
   DB_PROCESSING("Dummy");
   pl->_curP += 6;
   return 0;
@@ -372,7 +372,7 @@ int EUPPlayer_cmd_ff(int cmd, EUPPlayer *pl)
 
 void EUPPlayer::nextTick()
 {
-  // steptime ¤Ò¤È¤ÄÊ¬¿Ê¤á¤ë
+  // steptime ã²ã¨ã¤åˆ†é€²ã‚ã‚‹
 
   if (this->isPlaying())
     for (;;) {

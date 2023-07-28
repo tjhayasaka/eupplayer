@@ -215,7 +215,7 @@ void EUP_TownsInternal::pitchBend(int track, int value)
 
 void EUP_TownsInternal::programChange(int track, int num)
 {
-  /* track -> channel ¤ÎÊÑ´¹¤ò¤·¤Ê¤­¤ã  */
+  /* track -> channel ã®å¤‰æ›ã‚’ã—ãªãã‚ƒ  */
   int channel = track;
   _dev[channel]->setInstrumentParameter(_fmInstrument[num]);
 }

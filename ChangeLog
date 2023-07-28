@@ -38,65 +38,65 @@
 
         * 0.007 released.  (v-0_007)
 
-	* eupplayer_townsEmulator.cc:  config.h ¤ò include ¤·¤Ê¤¤¤è¤¦¤Ë¤·
-	¤¿¡£
+	* eupplayer_townsEmulator.cc:  config.h ã‚’ include ã—ãªã„ã‚ˆã†ã«ã—
+	ãŸã€‚
 
-	* configure.in:  automake ¤ò»È¤¦¤è¤¦¤Ë¤·¤¿¡£
-	config.h ¤òºî¤é¤Ê¤¤¤è¤¦¤Ë¤·¤¿¡£
+	* configure.in:  automake ã‚’ä½¿ã†ã‚ˆã†ã«ã—ãŸã€‚
+	config.h ã‚’ä½œã‚‰ãªã„ã‚ˆã†ã«ã—ãŸã€‚
 
-	* Makefile.am (EXTRA_DIST, man_MANS):  ÊÑ¿ôÄÉ²Ã¡£
-	(eupplay.1):  ¿·¥¿¡¼¥²¥Ã¥È¡£
+	* Makefile.am (EXTRA_DIST, man_MANS):  å¤‰æ•°è¿½åŠ ã€‚
+	(eupplay.1):  æ–°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã€‚
 
-	* README, AUTHORS, NEWS, Makefile.am, eupplay.1.in:  ¿·¥Õ¥¡¥¤¥ë¡£
+	* README, AUTHORS, NEWS, Makefile.am, eupplay.1.in:  æ–°ãƒ•ã‚¡ã‚¤ãƒ«ã€‚
 
-	* Makefile.in, acconfig.h config.h.in, stamp-h.in:  cvs ¤Î´ÉÍı²¼¤«¤é³°¤·¤¿¡£
+	* Makefile.in, acconfig.h config.h.in, stamp-h.in:  cvs ã®ç®¡ç†ä¸‹ã‹ã‚‰å¤–ã—ãŸã€‚
 	
-	* make-depend, make-dist, tar-excludes:  ºï½ü¡£
+	* make-depend, make-dist, tar-excludes:  å‰Šé™¤ã€‚
 
 1998-10-14  Tomoaki Hayasaka  <hayasaka@fh.u-tokai.ac.jp>
 
         * 0.006 released.  (v-0_006)
 
-	* eupplayer_townsEmulator.cc:  assert.h ¤ò include¡£
-	(CHECK_CHANNEL_NUM):  ¿·µ¬¥Ş¥¯¥í¡£channel ÈÖ¹æ¤Î check ¤ò¤¹¤ë´Ø¿ô
-	¤Ç¤³¤ì¤ò»ÈÍÑ¤¹¤ë¤è¤¦¤Ë¤·¤¿¡£
+	* eupplayer_townsEmulator.cc:  assert.h ã‚’ includeã€‚
+	(CHECK_CHANNEL_NUM):  æ–°è¦ãƒã‚¯ãƒ­ã€‚channel ç•ªå·ã® check ã‚’ã™ã‚‹é–¢æ•°
+	ã§ã“ã‚Œã‚’ä½¿ç”¨ã™ã‚‹ã‚ˆã†ã«ã—ãŸã€‚
 	(TownsFmEmulator::setInstrumentParameter,
-	TownsPcmEmulator::setInstrumentParameter):  ÅÏ¤µ¤ì¤¿ instrument ¤¬ 
-	NULL ¤Ê¤é¥á¥Ã¥»¡¼¥¸¤ò½Ğ¤·¤Æ return ¤¹¤ë¤è¤¦¤Ë¤·¤¿¡£
-	(EUP_TownsEmulator::programChange):  instrument ¤ÎÈÖ¹æ¤¬ÈÏ°Ï¤ËÆş¤Ã
-	¤Æ¤¤¤Ê¤¤¤È¤­¤Ë¡¢_channel[channel]->setInstrumentParameter ¤Ë 
-	_fmInstrument[] ¤ä _pcmInstrument[] ¤Î³°¤òÅÏ¤µ¤Ê¤¤¤è¤¦¤Ë¤·¤¿¡£
+	TownsPcmEmulator::setInstrumentParameter):  æ¸¡ã•ã‚ŒãŸ instrument ãŒ 
+	NULL ãªã‚‰ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‡ºã—ã¦ return ã™ã‚‹ã‚ˆã†ã«ã—ãŸã€‚
+	(EUP_TownsEmulator::programChange):  instrument ã®ç•ªå·ãŒç¯„å›²ã«å…¥ã£
+	ã¦ã„ãªã„ã¨ãã«ã€_channel[channel]->setInstrumentParameter ã« 
+	_fmInstrument[] ã‚„ _pcmInstrument[] ã®å¤–ã‚’æ¸¡ã•ãªã„ã‚ˆã†ã«ã—ãŸã€‚
 	
-	* eupplayer.cc (EUPPlayer::EUPPlayer):  _track2channel[] ¤Î½é´ü²½
-	¤ò¤¹¤ë¤è¤¦¤Ë¤·¤¿¡£
-	(EUPPlayer::mapTrack_toChannel):  track ¤È channel ¤Ë´Ø¤¹¤ë 
-	assertion ¤òÄÉ²Ã¡£
+	* eupplayer.cc (EUPPlayer::EUPPlayer):  _track2channel[] ã®åˆæœŸåŒ–
+	ã‚’ã™ã‚‹ã‚ˆã†ã«ã—ãŸã€‚
+	(EUPPlayer::mapTrack_toChannel):  track ã¨ channel ã«é–¢ã™ã‚‹ 
+	assertion ã‚’è¿½åŠ ã€‚
 	
 	* eupplayer_towns.h (TownsAudioDevice::assignFmDeviceToChannel,
 	TownsAudioDevice::assignPcmDeviceToChannel,
-	setPcmInstrumentParameters):  = 0 ¤ÎÀë¸À¤òÉÕ¤±¤¿¡£
+	setPcmInstrumentParameters):  = 0 ã®å®£è¨€ã‚’ä»˜ã‘ãŸã€‚
 
-	* eupplay.cc (EUPPlayer_readFile):  EUP file ¤¬¤¢¤Ş¤ê¤Ë¾®¤µ¤¤¤È¤­
-	¤Ï¥á¥Ã¥»¡¼¥¸¤ò½Ğ¤·¤Æ»ß¤Ş¤ë¤è¤¦¤Ë¤·¤¿¡£¤Ê¤Ë¤«¥¨¥é¡¼¤¬µ¯¤­¤¿¤È¤­¤Ë¡¢
-	return ¤¹¤ëÁ°¤Ë¥á¥Ã¥»¡¼¥¸¤ò½ĞÎÏ¤¹¤ë¤è¤¦¤Ë¤·¤¿¡£
-	(main):  EUP file ¤Î read ¤Ë¼ºÇÔ¤·¤¿¤È¤­¤Î¥á¥Ã¥»¡¼¥¸¤Î½ĞÎÏ¤Ë¡¢
-	perror ¤ò»È¤ï¤Ê¤¤¤è¤¦¤Ë¤·¤¿¡£(¤¹¤Ç¤Ë EUPPlayer_readFile ¤¬ perror 
-	¤Ê¤É¤Ç½ĞÎÏ¤·¤Æ¤¤¤ë¤Ï¤º)
+	* eupplay.cc (EUPPlayer_readFile):  EUP file ãŒã‚ã¾ã‚Šã«å°ã•ã„ã¨ã
+	ã¯ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‡ºã—ã¦æ­¢ã¾ã‚‹ã‚ˆã†ã«ã—ãŸã€‚ãªã«ã‹ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸã¨ãã«ã€
+	return ã™ã‚‹å‰ã«ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‡ºåŠ›ã™ã‚‹ã‚ˆã†ã«ã—ãŸã€‚
+	(main):  EUP file ã® read ã«å¤±æ•—ã—ãŸã¨ãã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å‡ºåŠ›ã«ã€
+	perror ã‚’ä½¿ã‚ãªã„ã‚ˆã†ã«ã—ãŸã€‚(ã™ã§ã« EUPPlayer_readFile ãŒ perror 
+	ãªã©ã§å‡ºåŠ›ã—ã¦ã„ã‚‹ã¯ãš)
 
 Sun Apr 27 15:40:59 1997  Tomoaki HAYASAKA  <hayasaka@fh.u-tokai.ac.jp>
 
- 	* NEWS-ja, README-ja, eupplayer.ggg, make-dist:  version ¤ò 0.006 
-	¤Ë¡£
+ 	* NEWS-ja, README-ja, eupplayer.ggg, make-dist:  version ã‚’ 0.006 
+	ã«ã€‚
 
 Sun Apr 27 15:20:04 1997  Tomoaki HAYASAKA  <hayasaka@fh.u-tokai.ac.jp>
 
-	* README-jp, README-ja, make-dist:  Ì¾Á°¤ò README-jp ¤«¤é 
-	README-ja ¤ËÊÑ¹¹¡£
+	* README-jp, README-ja, make-dist:  åå‰ã‚’ README-jp ã‹ã‚‰ 
+	README-ja ã«å¤‰æ›´ã€‚
 	
-	* NEWS-jp, NEWS-ja:  Ì¾Á°¤ò NEWS-jp ¤«¤é NEWS-ja ¤ËÊÑ¹¹¡£
+	* NEWS-jp, NEWS-ja:  åå‰ã‚’ NEWS-jp ã‹ã‚‰ NEWS-ja ã«å¤‰æ›´ã€‚
 
 	* eupplayer_townsEmulator.cc (TownsFmEmulator::~TownsFmEmulator):
-  	delete ¤Ë [] ¤òÄÉ²Ã¡£
+  	delete ã« [] ã‚’è¿½åŠ ã€‚
 
 Mon Sep 30 01:34:21 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
@@ -107,33 +107,33 @@ Tue Sep 17 18:34:52 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 	* eupplayer_townsEmulator.cc:
   	(TownsPcmEnvelope::TownsPcmEnvelope(TownsPcmEnvelope const *e)):
  	new method.
-	(TownsPcmInstrument::findEnvelope):  Ìá¤ê¤ò const ¤ËÊÑ¹¹¡£
-	(TownsPcmEmulator::nextTick):  _currentEnvelope ¤ò»ÈÍÑ¤·½ª¤Ã¤¿¤é
-	delete ¤¹¤ë¤è¤¦¤ËÊÑ¹¹¡£
-	(TownsPcmEmulator::note):  envelope ¤ò¥³¥Ô¡¼¤·¤Æ»È¤¦¤è¤¦¤Ë¤·¤¿¡£
+	(TownsPcmInstrument::findEnvelope):  æˆ»ã‚Šã‚’ const ã«å¤‰æ›´ã€‚
+	(TownsPcmEmulator::nextTick):  _currentEnvelope ã‚’ä½¿ç”¨ã—çµ‚ã£ãŸã‚‰
+	delete ã™ã‚‹ã‚ˆã†ã«å¤‰æ›´ã€‚
+	(TownsPcmEmulator::note):  envelope ã‚’ã‚³ãƒ”ãƒ¼ã—ã¦ä½¿ã†ã‚ˆã†ã«ã—ãŸã€‚
 	
 Tue Sep 17 17:51:33 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
 	* (w-1)
 
-	* eupplayer.cc:  (DB_PROCESSING):  ¿·µ¬¥Ş¥¯¥í¡£EUPPlayer_cmd_???? 
-	¤Ç»ÈÍÑ¡£
+	* eupplayer.cc:  (DB_PROCESSING):  æ–°è¦ãƒã‚¯ãƒ­ã€‚EUPPlayer_cmd_???? 
+	ã§ä½¿ç”¨ã€‚
 	
 	* eupplayer_townsEmulator.cc:  (TownsFmEmulator::velocity):
-  	control7 ¤Î°·¤¤¤òÊÑ¹¹¡£
+  	control7 ã®æ‰±ã„ã‚’å¤‰æ›´ã€‚
 
 Sun Sep 15 11:47:57 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 	
         * 0.004 released.  (v-0_004)
 
 	* eupplayer_townsEmulator.cc:
-  	(TownsFmEmulator::recalculateFrequency):  ¥Ô¥Ã¥Á¥Ù¥ó¥É¤ÎÆ°ºî¤ò½ãÀµ
-	¥×¥ì¥¤¥ä¡¼¤Ë¹ç¤ï¤»¤ë¤³¤È¤ËÀ®¸ù¤·¤¿¡£
+  	(TownsFmEmulator::recalculateFrequency):  ãƒ”ãƒƒãƒãƒ™ãƒ³ãƒ‰ã®å‹•ä½œã‚’ç´”æ­£
+	ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«åˆã‚ã›ã‚‹ã“ã¨ã«æˆåŠŸã—ãŸã€‚
 
 Thu Sep 12 20:36:33 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
-	* eupplayer_townsEmulator.cc: (TownsPcmEmulator::nextTick):  Àş·¿
-	Êä´Ö¤¹¤ë¤è¤¦¤Ë¤·¤Æ¤ß¤¿¡£
+	* eupplayer_townsEmulator.cc: (TownsPcmEmulator::nextTick):  ç·šå‹
+	è£œé–“ã™ã‚‹ã‚ˆã†ã«ã—ã¦ã¿ãŸã€‚
 
 Thu Sep 12 18:30:25 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
@@ -142,68 +142,68 @@ Thu Sep 12 18:30:25 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 	* eupplayer_townsEmulator.cc:  (TownsPcmSound):  data -> samples,
  	dataLength -> numSamples
 
-	* eupplay.cc:  (EUPPlayer_readFile):  EUP_FMINST ¤È EUP_FMINST ¤Î
-	¥Ç¥Õ¥©¥ë¥È¤òÊÑ¹¹¤·¤¿¡£
+	* eupplay.cc:  (EUPPlayer_readFile):  EUP_FMINST ã¨ EUP_FMINST ã®
+	ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚’å¤‰æ›´ã—ãŸã€‚
 
-	* mule-19.33-beta »ÈÍÑ³«»Ï¡£¤È¤­¤É¤­Íî¤Á¤ë¡£
+	* mule-19.33-beta ä½¿ç”¨é–‹å§‹ã€‚ã¨ãã©ãè½ã¡ã‚‹ã€‚
 	
 Fri Sep  6 12:50:17 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
-	* eupplayer_townsEmulator.cc:  (TownsPcmEmulator::nextTick):  ²»ÎÌ
-	¤ò 185/256 ¤Ë¡£
+	* eupplayer_townsEmulator.cc:  (TownsPcmEmulator::nextTick):  éŸ³é‡
+	ã‚’ 185/256 ã«ã€‚
 
-	* mule-19.33-alpha »ÈÍÑ³«»Ï¡£
+	* mule-19.33-alpha ä½¿ç”¨é–‹å§‹ã€‚
 
 Wed Sep  4 14:48:48 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
         * 0.003 released.  (v-0_003)
 
 	* eupplayer_townsEmulator.cc:
-	(TownsFmEmulator_Operator):  attack Æ°ºî¤Î²şÊÑ¤Ë´Ø¤¹¤ëÍÍ¡¹¤Ê²şÂ¤¡£
+	(TownsFmEmulator_Operator):  attack å‹•ä½œã®æ”¹å¤‰ã«é–¢ã™ã‚‹æ§˜ã€…ãªæ”¹é€ ã€‚
 
 	* eupplayer_townsEmulator.h:
-        (TownsFmEmulator_Operator:_attackRate):  ºï½ü¡£
-	(TownsFmEmulator_Operator:_tickCount, _attackTime):  ¿·µ¬¡£
+        (TownsFmEmulator_Operator:_attackRate):  å‰Šé™¤ã€‚
+	(TownsFmEmulator_Operator:_tickCount, _attackTime):  æ–°è¦ã€‚
 
-	* eupplay.cc:  (main):  LSB first ¤È MSB first ¤È¤òÆş¤ì´¹¤¨¡£
+	* eupplay.cc:  (main):  LSB first ã¨ MSB first ã¨ã‚’å…¥ã‚Œæ›ãˆã€‚
 
-	* mksintbl.c:  Á´Éô const¡£
-	attackOut ¤â½ĞÎÏ¤¹¤ë¤è¤¦¤Ë¤·¤¿¡£
+	* mksintbl.c:  å…¨éƒ¨ constã€‚
+	attackOut ã‚‚å‡ºåŠ›ã™ã‚‹ã‚ˆã†ã«ã—ãŸã€‚
 
-	* sintbl.h:  Á´Éô const¡£
+	* sintbl.h:  å…¨éƒ¨ constã€‚
 
 Mon Sep  2 08:55:23 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
 	* eupplayer_townsEmulator.cc:
-  	(TownsFmEmulator::~TownsFmEmulator):  »ÃÄêÅª¤Ë _opr ¤ò delete ¤·¤Ê
-	¤¤¤è¤¦¤Ë¤·¤¿¡£
+  	(TownsFmEmulator::~TownsFmEmulator):  æš«å®šçš„ã« _opr ã‚’ delete ã—ãª
+	ã„ã‚ˆã†ã«ã—ãŸã€‚
 
-	* eupplay.cc:  (main):  -t ¤Ê¤É¤Î option ¤ò¼õ¤±¤ë¤è¤¦¤Ë¤·¤¿¡£
+	* eupplay.cc:  (main):  -t ãªã©ã® option ã‚’å—ã‘ã‚‹ã‚ˆã†ã«ã—ãŸã€‚
 
 	* eupplayer_townsEmulator.cc, eupplayer_townsEmulator.h:
 	(EUP_TownsEmulator::outputSampleUnsigned,
 	EUP_TownsEmulator::_outputSampleUnsigned,
 	EUP_TownsEmulator::outputSampleLSBFirst,
-	EUP_TownsEmulator::_outputSampleLSBFirst): ¿·µ¬¡£
+	EUP_TownsEmulator::_outputSampleLSBFirst): æ–°è¦ã€‚
 	(EUP_TownsEmulator::EUP_TownsEmulator, EUP_TownsEmulator::nextTick):
-	¾åµ­¤Ë¹ç¤ï¤»¤ÆÊÑ¹¹¡£
+	ä¸Šè¨˜ã«åˆã‚ã›ã¦å¤‰æ›´ã€‚
 
 	* eupplayer.cc, eupplayer_townsEmulator.h,
  	eupplayer_townsEmulator.cc:  outputDataLength -> outputSampleSize 
-	¤ØÊÑ¹¹¡£
+	ã¸å¤‰æ›´ã€‚
 
 Sun Sep  1 12:51:22 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
 	* eupplayer_townsEmulator.h:
-        (TownsFmEmulator_Operator::_specifiedSustainLevel):  ¿·µ¬¡£
+        (TownsFmEmulator_Operator::_specifiedSustainLevel):  æ–°è¦ã€‚
 
 	* eupplayer_townsEmulator.cc:
-  	(TownsFmEmulator_Operator::nextTick, velocity):  _totalLevel ¤Ç_
-	velocity ¤ò¼ÂÁõ¡£¤³¤ì¤Ï¡¢Á°¤ËÊÑ¹¹¤·Ëº¤ì¤¿¤È¤³¤í¡£
+  	(TownsFmEmulator_Operator::nextTick, velocity):  _totalLevel ã§_
+	velocity ã‚’å®Ÿè£…ã€‚ã“ã‚Œã¯ã€å‰ã«å¤‰æ›´ã—å¿˜ã‚ŒãŸã¨ã“ã‚ã€‚
 
-	* eupplayer.cc, eupplayer_townsEmulator.cc:  (DB):  ¿·µ¬¡£
-	(DB1, DB2, DB3):  ºï½ü¡£¤³¤ì¤é¤ò»È¤Ã¤Æ¤¤¤¿¤È¤³¤í¤Ï DB ¤ò»È¤¦¤è¤¦¤Ë
-	ÊÑ¹¹¡£
+	* eupplayer.cc, eupplayer_townsEmulator.cc:  (DB):  æ–°è¦ã€‚
+	(DB1, DB2, DB3):  å‰Šé™¤ã€‚ã“ã‚Œã‚‰ã‚’ä½¿ã£ã¦ã„ãŸã¨ã“ã‚ã¯ DB ã‚’ä½¿ã†ã‚ˆã†ã«
+	å¤‰æ›´ã€‚
 
 Thu Aug 29 13:23:18 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
@@ -211,92 +211,92 @@ Thu Aug 29 13:23:18 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
 	* eupplay.cc:  (main):
 	* eupplayer_townsEmulator.cc, eupplayer_townsEmulator.h:
-	(EUP_TownsEmulator):  ½ĞÎÏ¥¹¥È¥ê¡¼¥à¤È¤·¤Æ ostream ¤Ç¤Ï¤Ê¤¯ FILE 
-	¤ò»È¤¦¤è¤¦¤Ë¤·¤¿¡£
+	(EUP_TownsEmulator):  å‡ºåŠ›ã‚¹ãƒˆãƒªãƒ¼ãƒ ã¨ã—ã¦ ostream ã§ã¯ãªã FILE 
+	ã‚’ä½¿ã†ã‚ˆã†ã«ã—ãŸã€‚
 
 	* eupplayer_townsEmulator.cc:  (TownsPcmEnvelope::nextTick):
- 	overflow ÂĞºö¤Ç long long¡£
+ 	overflow å¯¾ç­–ã§ long longã€‚
 
 Wed Aug 28 04:23:08 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
-	* eupplayer.cc:  (EUPPlayer_cmd_9x):  offVelo ¤Î¾ÊÎ¬¤ËÂĞ±ş¡£
+	* eupplayer.cc:  (EUPPlayer_cmd_9x):  offVelo ã®çœç•¥ã«å¯¾å¿œã€‚
 
 	* eupplayer_townsEmulator.cc:
 	* eupplayer_townsEmulator.h:
 	(EUP_TownsEmulator_MonophonicAudioSynthesizer,
- 	TownsFmEmulator_Operator, TownsFmEmulator):  TL ¤Ë¤è¤ë velocity ¤Î
-	¼ÂÁõ¤Ë´Ø¤¹¤ëÍÍ¡¹¤ÊÊÑ¹¹¡£
+ 	TownsFmEmulator_Operator, TownsFmEmulator):  TL ã«ã‚ˆã‚‹ velocity ã®
+	å®Ÿè£…ã«é–¢ã™ã‚‹æ§˜ã€…ãªå¤‰æ›´ã€‚
 
-	* eupplayer_townsEmulator.cc:  ¤½¤ÎÂ¾¡£
+	* eupplayer_townsEmulator.cc:  ãã®ä»–ã€‚
 
 Sun Aug 25 07:57:15 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
-	* NEWS-jp:  ¿·¥Õ¥¡¥¤¥ë¡£
+	* NEWS-jp:  æ–°ãƒ•ã‚¡ã‚¤ãƒ«ã€‚
 
 	* eupplayer.cc:  (OVERSTEP, COMPRESSOVERSTEPS):  new macro
-	(WAIT4NEXTSTEP):  COMPRESSOVERSTEPS ¤ò»È¤¦¤è¤¦¤ËÊÑ¹¹¡£
-	(EUPPlayer_cmd_f2):  OVERSTEP ¤Ë¤è¤ê½èÍı¤òÊ¬¤±¤¿¡£
+	(WAIT4NEXTSTEP):  COMPRESSOVERSTEPS ã‚’ä½¿ã†ã‚ˆã†ã«å¤‰æ›´ã€‚
+	(EUPPlayer_cmd_f2):  OVERSTEP ã«ã‚ˆã‚Šå‡¦ç†ã‚’åˆ†ã‘ãŸã€‚
 
 Sun Aug 25 05:39:49 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
 	* eupplayer.cc, eupplayer.h, eupplayer_towns.h,
 	eupplayer_townsEmulator.cc, eupplayer_townsEmulator.h: 
-	track -> channel ¤ÎÊÑ´¹¤ò¹Ô¤¦¤è¤¦¤Ë¤·¤¿¤³¤È¤Ë´Ø¤¹¤ëÍÍ¡¹¤ÊÊÑ¹¹¡£
+	track -> channel ã®å¤‰æ›ã‚’è¡Œã†ã‚ˆã†ã«ã—ãŸã“ã¨ã«é–¢ã™ã‚‹æ§˜ã€…ãªå¤‰æ›´ã€‚
 
-	* eupplay.cc:  (openFile_inPath):  ¥á¥Ã¥»¡¼¥¸É½¼¨¤òºÆÉõ°õ¡£
-	(EUPPlayer_readFile):  MIDI-ch ¤Ê¤É¤Î»ØÄê¤òÆÉ¤à¤è¤¦¤Ë¤·¤¿¡£
+	* eupplay.cc:  (openFile_inPath):  ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤ºã‚’å†å°å°ã€‚
+	(EUPPlayer_readFile):  MIDI-ch ãªã©ã®æŒ‡å®šã‚’èª­ã‚€ã‚ˆã†ã«ã—ãŸã€‚
 
 
 Sat Aug 24 05:28:27 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
-	* eupplayer_townsEmulator.cc:  (TownsPcmEmulator::nextTick):  ½ĞÎÏ 
-	2 ÇÜ¡£
+	* eupplayer_townsEmulator.cc:  (TownsPcmEmulator::nextTick):  å‡ºåŠ› 
+	2 å€ã€‚
 
 Fri Aug 23 01:59:51 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
 	* eupplayer_townsEmulator.h:
-	(TownsFmEmulator_Operator::frequency):  new method¡£
-	(TownsFmEmulator_Operator::nextTick):  freq °ú¿ô¤ò¼è¤é¤Ê¤¤¤è¤¦¤Ë¤·
-	¤¿¡£
+	(TownsFmEmulator_Operator::frequency):  new methodã€‚
+	(TownsFmEmulator_Operator::nextTick):  freq å¼•æ•°ã‚’å–ã‚‰ãªã„ã‚ˆã†ã«ã—
+	ãŸã€‚
 	(TownsFmEmulator_Operator::_frequency, _releaseRate):  new
- 	instance var¡£
+ 	instance varã€‚
 
 	* eupplayer_townsEmulator.cc:
-        (TownsFmEmulator_Operator::setInstrumentParameter):  SL ¤Î¸úÎÏ¤ò 4 
-	ÇÜ¤Ë¡£
+        (TownsFmEmulator_Operator::setInstrumentParameter):  SL ã®åŠ¹åŠ›ã‚’ 4 
+	å€ã«ã€‚
 
-	(TownsFmEmulator_Operator::keyOn):  _currentLevel ¤ò¥ê¥»¥Ã¥È¤¹¤ë¤è
-	¤¦¤Ë¤·¤¿¡£
+	(TownsFmEmulator_Operator::keyOn):  _currentLevel ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã‚ˆ
+	ã†ã«ã—ãŸã€‚
 
-	(TownsFmEmulator_Operator::frequency):  new method¡£nextTick ¤Î°ì
-	Éô¤ò°Ü¿¢¡£
+	(TownsFmEmulator_Operator::frequency):  new methodã€‚nextTick ã®ä¸€
+	éƒ¨ã‚’ç§»æ¤ã€‚
 
-	(TownsFmEmulator_Operator::nextTick):  ÊÑÄ´ÎÌ¤òÄ´À°¡£freq °ú¿ô¤ò¼è
-	¤é¤Ê¤¤¤è¤¦¤Ë¤·¤¿ (¸Æ¤Ó¸µ¤Î TownsFmEmulator::nextTick ¤âÊÑ¹¹)¡£
+	(TownsFmEmulator_Operator::nextTick):  å¤‰èª¿é‡ã‚’èª¿æ•´ã€‚freq å¼•æ•°ã‚’å–
+	ã‚‰ãªã„ã‚ˆã†ã«ã—ãŸ (å‘¼ã³å…ƒã® TownsFmEmulator::nextTick ã‚‚å¤‰æ›´)ã€‚
 
-	(EUP_TownsEmulator::nextTick):  ¤¦¤Á¤Ë¹ç¤ï¤»¤ÆÂ®ÅÙ¤òÈùÄ´À°¡£
+	(EUP_TownsEmulator::nextTick):  ã†ã¡ã«åˆã‚ã›ã¦é€Ÿåº¦ã‚’å¾®èª¿æ•´ã€‚
 
-	* eupplay.cc: (openFile_inPath):  ¥á¥Ã¥»¡¼¥¸½ĞÎÏ¤òÉü³è¡£
+	* eupplay.cc: (openFile_inPath):  ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡ºåŠ›ã‚’å¾©æ´»ã€‚
 
 Wed Aug 21 01:31:45 1996  tjh  <tjh@darkside.fh.u-tokai.ac.jp>
 
 	* eupplayer_townsEmulator.cc:  (TownsFmEmulator_Operator):
-  	envelope ´ØÏ¢¤Î·×»»¤ò setInstrumentParameter ¤«¤é nextTick ¤Ø°Ü¤·
-	¤¿¡£
+  	envelope é–¢é€£ã®è¨ˆç®—ã‚’ setInstrumentParameter ã‹ã‚‰ nextTick ã¸ç§»ã—
+	ãŸã€‚
 
 	* eupplayer_townsEmulator.h:  (TownsFmEmulator_Operator):
-  	envelope ´ØÏ¢¤ÎÊÑ¿ô¤òÄÉ²Ã¡£
+  	envelope é–¢é€£ã®å¤‰æ•°ã‚’è¿½åŠ ã€‚
 
-	* eupplay.cc:  (main):  error message ¤Î½ĞÎÏ¤òÉü³è¡£
+	* eupplay.cc:  (main):  error message ã®å‡ºåŠ›ã‚’å¾©æ´»ã€‚
 
-	* mksintbl.c:  keyscaleTable[] ¤òºî¤ë¤è¤¦¤Ë¤·¤¿¡£
+	* mksintbl.c:  keyscaleTable[] ã‚’ä½œã‚‹ã‚ˆã†ã«ã—ãŸã€‚
 
 	* sintbl.h:  (keyscaleTable[]):  new
 
 	* eupplayer_townsEmulator.cc:
-        (TownsFmEmulator_Operator::nextTick):  self feedback ÎÌ¤òÈ¾Ê¬¤Ë¡£
+        (TownsFmEmulator_Operator::nextTick):  self feedback é‡ã‚’åŠåˆ†ã«ã€‚
 
-	* Makefile.in:  (mostlyclean):  config.log ¤âºï½ü¤¹¤ë¤è¤¦¤Ë¤·¤¿¡£
+	* Makefile.in:  (mostlyclean):  config.log ã‚‚å‰Šé™¤ã™ã‚‹ã‚ˆã†ã«ã—ãŸã€‚
 
 --------
 

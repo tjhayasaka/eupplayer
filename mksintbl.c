@@ -33,8 +33,8 @@ int main(int ac, char **av)
       0x03d5, 0x0410, 0x044e, 0x048f,
     };
 
-    /* (int)(880.0 * 256.0 * pow(2.0, (note-0x51)/12.0)); // •–•§•¢•π 256 «‹ */
-    /* 0x45 §¨ 440Hz (a4)°¢0x51 §¨ 880Hz (a5) §È§∑§§ */
+    /* (int)(880.0 * 256.0 * pow(2.0, (note-0x51)/12.0)); // „Éê„Ç§„Ç¢„Çπ 256 ÂÄç */
+    /* 0x45 „Åå 440Hz (a4)„ÄÅ0x51 „Åå 880Hz (a5) „Çâ„Åó„ÅÑ */
     printf("\nint const frequencyTable[] = {\n");
     for (block = -1; block < 9; block++) {
       for (i = 0; i < 12; i++) {
@@ -45,7 +45,7 @@ int main(int ac, char **av)
     printf("};\n");
 
     printf("\nint const keycodeTable[] = {\n");
-    /* detune ŒÃ§Œ∑◊ªª§‰ KS §À§Ë§Î rate  —¥π§Àª»§¶§Û§∏§„§ §§§´§  */
+    /* detune Èáè„ÅÆË®àÁÆó„ÇÑ KS „Å´„Çà„Çã rate Â§âÊèõ„Å´‰Ωø„ÅÜ„Çì„Åò„ÇÉ„Å™„ÅÑ„Åã„Å™ */
     for (block = -1; block < 9; block++) {
       for (i = 0; i < 12; i++) {
 	/* see p.204 */
@@ -69,7 +69,7 @@ int main(int ac, char **av)
     printf("%d,\n", 0);
     for (freq = 1; freq < 8192; freq++) {
       printf("%d,\n", (int)(log((double)freq) / 9.03 * 32.0) - 1);
-      // 8368[Hz] (o9c) §« 32§Ø§È§§°£9.03 =:= ln 8368
+      // 8368[Hz] (o9c) „Åß 32„Åè„Çâ„ÅÑ„ÄÇ9.03 =:= ln 8368
     }
     printf("};\n");
   }

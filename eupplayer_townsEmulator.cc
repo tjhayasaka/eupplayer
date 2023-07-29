@@ -70,6 +70,7 @@ class TownsPcmSound
   int _loopLength;
   int _samplingRate;
   int _keyOffset;
+  int _adjustedSamplingRate;
   int _keyNote;
   signed char *_samples;
  public:
@@ -80,6 +81,8 @@ class TownsPcmSound
   int loopStart() const { return _loopStart; }
   int loopLength() const { return _loopLength; }
   int samplingRate() const { return _samplingRate; }
+  int keyOffset() const { return _keyOffset; }
+  int adjustedSamplingRate() const { return _adjustedSamplingRate; }
   int keyNote() const { return _keyNote; }
   signed char const * samples() const { return _samples; }
 };
@@ -96,8 +99,9 @@ TownsPcmSound::TownsPcmSound(u_char const *p)
   _numSamples = P4(p+12);
   _loopStart = P4(p+16);
   _loopLength = P4(p+20);
-  _samplingRate = (u_int)(P2(p+24)) * (1000*0x10000/0x62);
-  _keyOffset = P2(p+26);
+  _samplingRate = P2(p+24);
+  _keyOffset = (int16_t)P2(p+26);
+  _adjustedSamplingRate = (_samplingRate + _keyOffset) * (1000*0x10000/0x62);
   _keyNote = *(u_char*)(p+28);
   _samples = new signed char[_numSamples];
   for (int i = 0; i < _numSamples; i++) {
@@ -865,7 +869,7 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
     int64_t ps = frequencyTable[_note];
     ps *= powtbl[_frequencyOffs>>4];
     ps /= frequencyTable[_currentSound->keyNote() - _currentEnvelope->rootKeyOffset()];
-    ps *= _currentSound->samplingRate();
+    ps *= _currentSound->adjustedSamplingRate();
     ps /= this->rate();
     ps >>= 16;
     phaseStep = ps;

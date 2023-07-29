@@ -594,7 +594,7 @@ int TownsFmEmulator_Operator::nextTick(int rate, int phaseShift)
 
 TownsFmEmulator::TownsFmEmulator()
 {
-  _control7 = 127;
+  _control7 = 100; // power-on reset value (100) is defined in midi spec
   _offVelocity = 0;
   _gateTime = 0;
   _note = 40;
@@ -616,7 +616,8 @@ void TownsFmEmulator::velocity(int velo)
 #if 0
   int v = (velo * _control7) >> 7; // これだと精度良くないですね
 #else
-  int v = velo + (_control7 - 127) * 4;
+  //int v = velo + (_control7 - 127) * 4;
+  int v = (velo * velo * _control7 * _control7) / (127 * 127 * 127);
 #endif
   bool iscarrier[8][4] = {
     { false, false, false,  true, }, /*0*/
@@ -819,7 +820,7 @@ void TownsFmEmulator::recalculateFrequency()
 
 TownsPcmEmulator::TownsPcmEmulator()
 {
-  _control7 = 127;
+  _control7 = 100; // power-on reset value (100) is defined in midi spec
   this->velocity(0);
   _gateTime = 0;
   _frequencyOffs = 0x2000;
@@ -945,6 +946,7 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
     output *= _currentEnvelope->nextTick();
     output >>= 7;
     output *= _control7;	// 正しい減衰量は?
+    // output *= _control7 * _control7 / 127;	// 正しい減衰量は?
     output >>= 7;
     // FM との音量バランスを取る。
     output *= 185; // くらい?  半端ですねぇ。

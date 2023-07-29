@@ -638,12 +638,26 @@ void TownsFmEmulator::velocity(int velo)
 void TownsFmEmulator::setControlParameter(int control, int value)
 {
   switch (control) {
+  case 1:
+    // modulation
+    if (value != 0) {
+      // not implemented
+      fprintf(stderr, "TownsFmEmulator::setControlParameter: control %d (modulation) is not implemented.  val=%d\n", control, value);
+    }
+    break;
   case 7:
     _control7 = value;
     this->velocity(this->velocity());
     break;
   case 10:
     // panpot
+    break;
+  case 11:
+    // expression
+    if (value != 0x7f) {
+      // not implemented
+      fprintf(stderr, "TownsFmEmulator::setControlParameter: control %d (expression) is not implemented.  val=%d\n", control, value);
+    }
     break;
   default:
     fprintf(stderr, "TownsFmEmulator::setControlParameter: unknown control %d, val=%d\n", control, value);
@@ -821,11 +835,26 @@ TownsPcmEmulator::~TownsPcmEmulator()
 void TownsPcmEmulator::setControlParameter(int control, int value)
 {
   switch (control) {
+  case 1:
+    // modulation
+    if (value != 0) {
+      // not implemented
+      fprintf(stderr, "TownsPcmEmulator::setControlParameter: control %d (modulation) is not implemented.  val=%d\n", control, value);
+    }
+    break;
   case 7:
     _control7 = value;
     break;
   case 10:
     // panpot
+    // not implemented
+    break;
+  case 11:
+    // expression
+    if (value != 0x7f) {
+      // not implemented
+      fprintf(stderr, "TownsPcmEmulator::setControlParameter: control %d (expression) is not implemented.  val=%d\n", control, value);
+    }
     break;
   default:
     fprintf(stderr, "TownsPcmEmulator::setControlParameter: unknown control %d, val=%d\n", control, value);

@@ -104,10 +104,22 @@ TownsPcmSound::TownsPcmSound(u_char const *p)
   _adjustedSamplingRate = (_samplingRate + _keyOffset) * (1000*0x10000/0x62);
   _keyNote = *(u_char*)(p+28);
   _samples = new signed char[_numSamples];
-  for (int i = 0; i < _numSamples; i++) {
+  for (uint64_t i = 0; i < _numSamples; i++) {
     int n = p[32+i];
-    _samples[i] = (n>=0x80)?(n&0x7f):(-n);
+    _samples[i] = (n >= 0x80) ? (n & 0x7f) : (-n);
   }
+  if (_loopStart >= _numSamples) {
+    fprintf(stderr, "TownsPcmSound::TownsPcmSound: too large loopStart.  loopStart zeroed.  loopStart=0x%08x, numSamples=0x%08x\n", _loopStart, _numSamples);
+    _loopStart = 0;
+  }
+  if (_loopLength > _numSamples - _loopStart) {
+    fprintf(stderr, "TownsPcmSound::TownsPcmSound: too large loopLength.  loop disabled.  loopStart=0x%08x, loopLength=0x%08x, numSamples=0x%08x\n", _loopStart, _loopLength, _numSamples);
+    _loopLength = 0;
+  }
+  if (_loopLength != 0 && _loopStart + _loopLength < _numSamples) {
+    _numSamples = _loopStart + _loopLength;
+  }
+
   //cerr << this->describe() << '\n';
 }
 
@@ -946,7 +958,6 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
     output *= _currentEnvelope->nextTick();
     output >>= 7;
     output *= _control7;	// 正しい減衰量は?
-    // output *= _control7 * _control7 / 127;	// 正しい減衰量は?
     output >>= 7;
     // FM との音量バランスを取る。
     output *= 185; // くらい?  半端ですねぇ。

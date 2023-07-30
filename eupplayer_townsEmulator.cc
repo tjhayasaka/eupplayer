@@ -942,8 +942,8 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
     {
       uint32_t phase0 = _phase;
       uint32_t phase1 = _phase + 0x10000;
-      if (_phase >= numSamples) {
-        _phase -= loopLength;
+      if (phase1 >= numSamples) {
+        phase1 -= loopLength;
         // it's safe even if loopLength == 0, because soundSamples[] is extended by 1 and filled with 0 (see TownsPcmSound::TownsPcmSound).
       }
       phase0 >>= 16;

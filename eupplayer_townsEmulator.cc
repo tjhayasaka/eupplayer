@@ -1189,11 +1189,11 @@ void EUP_TownsEmulator::nextTick()
       d >>= 10;			// いいかげんだなぁ
       d ^= _outputSampleUnsigned?0x8000:0;
       if (_outputSampleLSBFirst) {
+	buf1[i*2+0] = ((d >> 0) & 0xff);
+	buf1[i*2+1] = ((d >> 8) & 0xff);
+      } else {
 	buf1[i*2+0] = ((d >> 8) & 0xff);
 	buf1[i*2+1] = ((d >> 0) & 0xff);
-      } else {
-	buf1[i*2+1] = ((d >> 8) & 0xff);
-	buf1[i*2+0] = ((d >> 0) & 0xff);
       }
     }
     fwrite(buf1, sizeof(buf1[0])*2, buflen, _ostr);

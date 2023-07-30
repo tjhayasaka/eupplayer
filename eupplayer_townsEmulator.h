@@ -105,7 +105,7 @@ class TownsPcmEmulator : public EUP_TownsEmulator_MonophonicAudioSynthesizer
   int _offVelocity;
   int _note;
   int _frequencyOffs;
-  int _phase;
+  uint64_t _phase;
   TownsPcmInstrument const *_currentInstrument;
   TownsPcmSound const *_currentSound;
   TownsPcmEnvelope *_currentEnvelope;

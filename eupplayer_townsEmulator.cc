@@ -903,8 +903,8 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
     ps >>= 16;
     phaseStep = ps;
   }
-  int loopLength = _currentSound->loopLength() << 16; // あらかじめ計算して
-  int numSamples = _currentSound->numSamples() << 16; // おくのは危険だぞ
+  uint32_t loopLength = _currentSound->loopLength() << 16; // あらかじめ計算して
+  uint32_t numSamples = _currentSound->numSamples() << 16; // おくのは危険だぞ
   signed char const *soundSamples = _currentSound->samples();
   for (int i = 0; i < buflen; i++) {
     if (loopLength > 0)
@@ -926,8 +926,8 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
     // 線型補間する。
     int output;
     {
-      int phase0 = _phase;
-      int phase1 = _phase + 0x10000;
+      uint32_t phase0 = _phase;
+      uint32_t phase1 = _phase + 0x10000;
       if (phase1 >= numSamples)
 	phase1 -= loopLength;
       phase0 >>= 16;

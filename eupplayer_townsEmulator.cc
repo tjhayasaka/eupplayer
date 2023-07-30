@@ -103,11 +103,12 @@ TownsPcmSound::TownsPcmSound(u_char const *p)
   _keyOffset = (int16_t)P2(p+26);
   _adjustedSamplingRate = (_samplingRate + _keyOffset) * (1000*0x10000/0x62);
   _keyNote = *(u_char*)(p+28);
-  _samples = new signed char[_numSamples];
+  _samples = new signed char[_numSamples + 1]; // append 1 sample, in order to avoid buffer overflow in liner interpolation process
   for (uint64_t i = 0; i < _numSamples; i++) {
     int n = p[32+i];
     _samples[i] = (n >= 0x80) ? (n & 0x7f) : (-n);
   }
+  _samples[_numSamples] = 0;
   if (_loopStart >= _numSamples) {
     fprintf(stderr, "TownsPcmSound::TownsPcmSound: too large loopStart.  loopStart zeroed.  loopStart=0x%08x, numSamples=0x%08x\n", _loopStart, _numSamples);
     _loopStart = 0;
@@ -941,8 +942,10 @@ void TownsPcmEmulator::nextTick(int *outbuf, int buflen)
     {
       uint32_t phase0 = _phase;
       uint32_t phase1 = _phase + 0x10000;
-      if (phase1 >= numSamples)
-	phase1 -= loopLength;
+      if (_phase >= numSamples) {
+        _phase -= loopLength;
+        // it's safe even if loopLength == 0, because soundSamples[] is extended by 1 and filled with 0 (see TownsPcmSound::TownsPcmSound).
+      }
       phase0 >>= 16;
       phase1 >>= 16;
 

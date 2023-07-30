@@ -28,7 +28,7 @@ dnl ############################
 
 AC_INIT(eupplay.cc)
 AC_PROG_MAKE_SET
-AM_INIT_AUTOMAKE(eupplayer, 0.008)
+AM_INIT_AUTOMAKE(eupplayer, 0.009)
 AC_PROG_CXX
 AC_HEADER_STDC
 AC_CHECK_HEADERS(unistd.h)

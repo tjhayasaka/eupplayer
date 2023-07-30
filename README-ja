@@ -1,5 +1,5 @@
 EUPPlayer - EUP Interpreter and Audio Synthesizer.
-Copyright (C) 1995-1997,2000 Tomoaki Hayasaka.
+Copyright (C) 1995-1997,2000,2023 Tomoaki Hayasaka.
 
 * EUPPlayer の概要
 
@@ -18,15 +18,18 @@ UN*X。
 
 一応コンパイルできて動作するらしいと確認した環境は:
 
-    Debian GNU/Linux (woody) + egcs-2.95.2
+    Debian GNU/Linux (bullseye/sid) + g++-12.2.0
 
 * コンパイル
 
-コンパイルには、最近の g++ (2.7.0 以降) とそれに対応した libstdc++ が
-必要です。クロスコンパイルには対応していません。
+コンパイルには、あまり古くない g++ (2.7.0 以降) とそれに対応した
+libstdc++ が必要です。リポジトリには configure は含まれていません。GNU
+automake と GNU autoconf で生成してください。また、クロスコンパイルに
+は対応していません。
 
-    $ ./configure 
-    $ make
+    $ aclocal && automake -af && autoconf
+    $ ./configure
+    $ make -j4 -k
 
 また、必要に応じて
 
@@ -39,9 +42,11 @@ UN*X。
   例:
       $ eupplayer pon29.eup >/dev/dsp
       $ eupplayer -r 22050 pon29.eup | \
-            sox -r 22050 -t .ub - -t .wav - | bplay
+            sox -c 1 -r 22050 -t .ub - -t .wav - | bplay
       $ eupplayer -t .sw -r 48000 pon29.eup | \
-            sox -r 48000 -t .sw - pon29.wav
+            sox -c 1 -r 48000 -t .sw - pon29.wav
+      $ eupplayer -t .sw -r 48000 pon29.eup | \
+            sox -c 1 -r 48000 -t .S16 -L - pon29.wav
 
 出力は、デフォルトでは、符号無し 8bit、8000 samples/sec. で、標準出力
 に行なわれます。
@@ -91,14 +96,24 @@ TOWNS 内蔵音源用の EUP ファイル以外は正しく演奏できません
 たとえ TOWNS で動かしたとしても、内蔵音源を直接ドライブすることは出来
 ません。
 
+モノラル出力しかできません。
+
 LFO など、未実装の機能がかなりあります。また、減衰量や変調量など、音質
 に直接関るパラメータの調整がされていません。
+
+* 派生版
+
+Windows 対応、web assembly 対応、各種のバグ修正や OPN 実装入れ替えがな
+された派生版が存在します。
+
+  - https://github.com/gzaffin/eupmini
+  - http://www.wothke.ch/webEuphony/
 
 * 配布条件
 
 EUPPlayer はフリーソフトウェアです。パブリックドメインソフトウェア 
 (PDS) ではありません。EUPPlayer の著作権は、早坂智明 (Tomoaki Hayasaka
-<hayasaka@postman.riken.go.jp>) が保持しています。
+<hayasaka@malmodeler.com>) が保持しています。
 
 EUPPlayer のコピー、配布、使用、改造、販売、他のプログラムへの組み込み
 等は、GNU General Public License version 2 に従う限り自由に行えます。
@@ -107,4 +122,4 @@ EUPPlayer のコピー、配布、使用、改造、販売、他のプログラ�
 配布条件の正確なところは、ファイル COPYING を参照してください。
 
 --
-Tomoaki Hayasaka <hayasaka@postman.riken.go.jp>
+Tomoaki Hayasaka <hayasaka@malmodeler.com>
